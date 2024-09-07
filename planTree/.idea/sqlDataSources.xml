@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="276e6621-bac3-4c2a-845e-f97cec1edbd6" name="plan_tree">
+      <data-sources db="0a3aee95-a89c-4003-9d88-5afc4a6a11aa" />
+    </mapping>
+  </component>
+</project>
