@@ -1,2 +1,2 @@
 # NAMU-BE
-BackEnd project repository
+# BackEnd project repository
