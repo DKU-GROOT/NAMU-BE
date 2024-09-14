@@ -3,9 +3,15 @@ package com.knowledge_expedition.planTree.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.knowledge_expedition.planTree.common.CertificationNumber;
+import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
 import com.knowledge_expedition.planTree.dto.response.ResponseDto;
+import com.knowledge_expedition.planTree.dto.response.auth.EmailCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.IdCheckResponseDto;
+import com.knowledge_expedition.planTree.entity.CertificationEntity;
+import com.knowledge_expedition.planTree.provider.EmailProvider;
+import com.knowledge_expedition.planTree.repository.CertificationRepository;
 import com.knowledge_expedition.planTree.repository.UserRepository;
 import com.knowledge_expedition.planTree.service.AuthService;
 
@@ -16,6 +22,9 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImplement implements AuthService {
 
     private final UserRepository userRepository;
+    private final CertificationRepository CertificationRepository;
+
+    private final EmailProvider emailProvider;
     
     @Override
     public ResponseEntity<? super IdCheckResponseDto> idCheck(IdCheckRequestDto dto) {
@@ -32,6 +41,37 @@ public class AuthServiceImplement implements AuthService {
         }
 
         return IdCheckResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super EmailCertificationResponseDto> emailCertification(EmailCertificationRequestDto dto) {
+        
+        try {
+
+            String userId = dto.getId();
+            String email = dto.getEmail();
+
+            //존재하는 이메일인지 확인
+            boolean isExistId = userRepository.existsByUserId(userId);
+            if (isExistId) return EmailCertificationResponseDto.duplicateId();
+
+            //인증번호 생성
+            String certificationNumber = CertificationNumber.getCertificationNumber();
+
+            //메일 전송
+            boolean isSuccessed = emailProvider.sendCertificationMail(email, certificationNumber);
+            if (!isSuccessed) return EmailCertificationResponseDto.mailSendFail();
+
+            //메일 전송 결과 저장
+            CertificationEntity certificationEntity = new CertificationEntity(userId, email, certificationNumber);
+            CertificationRepository.save(certificationEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return EmailCertificationResponseDto.success();
     }
     
 }

@@ -2,7 +2,9 @@ package com.knowledge_expedition.planTree.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
+import com.knowledge_expedition.planTree.dto.response.auth.EmailCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.IdCheckResponseDto;
 import com.knowledge_expedition.planTree.service.AuthService;
 
@@ -29,6 +31,14 @@ public class AuthController {
         ResponseEntity<? super IdCheckResponseDto> response = authService.idCheck(requestBody);
         return response;
     }
+    
+    @PostMapping("/email-certification")
+    public  ResponseEntity<? super EmailCertificationResponseDto> emailCertification (
+        @RequestBody @Valid EmailCertificationRequestDto requestBody
+        ) {
+            ResponseEntity<? super EmailCertificationResponseDto> response = authService.emailCertification(requestBody);
+            return response;
+        }
     
     
 }
