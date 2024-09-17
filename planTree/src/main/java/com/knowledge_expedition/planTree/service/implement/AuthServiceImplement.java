@@ -3,7 +3,6 @@ package com.knowledge_expedition.planTree.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.knowledge_expedition.planTree.common.CertificationNumber;
 import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
 import com.knowledge_expedition.planTree.dto.response.ResponseDto;
@@ -56,7 +55,7 @@ public class AuthServiceImplement implements AuthService {
             if (isExistId) return EmailCertificationResponseDto.duplicateId();
 
             //인증번호 생성
-            String certificationNumber = CertificationNumber.getCertificationNumber();
+            String certificationNumber = getCertificationNumber();
 
             //메일 전송
             boolean isSuccessed = emailProvider.sendCertificationMail(email, certificationNumber);
@@ -72,6 +71,15 @@ public class AuthServiceImplement implements AuthService {
         }
 
         return EmailCertificationResponseDto.success();
+    }
+
+    private static String getCertificationNumber() {
+
+        String certificationNumber = "";
+
+        for(int count = 0; count < 4; count++) certificationNumber += (int) (Math.random() * 10);
+
+        return certificationNumber;
     }
     
 }
