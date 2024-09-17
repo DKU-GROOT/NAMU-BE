@@ -4,6 +4,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
+import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +19,9 @@ public class EmailProvider {
     public boolean sendCertificationMail(String email, String certificationNumber) {
 
         try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
             
@@ -25,6 +29,7 @@ public class EmailProvider {
 
             messageHelper.setTo(email);
             messageHelper.setSubject(SUBJECT);
+            messageHelper.setFrom("nomagold57@gmail.com");
             messageHelper.setText(htmlContent, true);
 
             javaMailSender.send(message);
