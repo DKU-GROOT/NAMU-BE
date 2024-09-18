@@ -5,7 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.knowledge_expedition.planTree.entity.CertificationEntity;
 
+
 @Repository
 public interface CertificationRepository extends JpaRepository<CertificationEntity, String> {
+
+    CertificationEntity findByUserId(String userId);
     
 }

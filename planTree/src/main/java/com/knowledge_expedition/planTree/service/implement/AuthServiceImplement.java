@@ -3,9 +3,11 @@ package com.knowledge_expedition.planTree.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.knowledge_expedition.planTree.dto.request.auth.CheckCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
 import com.knowledge_expedition.planTree.dto.response.ResponseDto;
+import com.knowledge_expedition.planTree.dto.response.auth.CheckCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.EmailCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.IdCheckResponseDto;
 import com.knowledge_expedition.planTree.entity.CertificationEntity;
@@ -21,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImplement implements AuthService {
 
     private final UserRepository userRepository;
-    private final CertificationRepository CertificationRepository;
+    private final CertificationRepository certificationRepository;
 
     private final EmailProvider emailProvider;
     
@@ -63,7 +65,7 @@ public class AuthServiceImplement implements AuthService {
 
             //메일 전송 결과 저장
             CertificationEntity certificationEntity = new CertificationEntity(userId, email, certificationNumber);
-            CertificationRepository.save(certificationEntity);
+            certificationRepository.save(certificationEntity);
             
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -80,6 +82,28 @@ public class AuthServiceImplement implements AuthService {
         for(int count = 0; count < 4; count++) certificationNumber += (int) (Math.random() * 10);
 
         return certificationNumber;
+    }
+
+    @Override
+    public ResponseEntity<? super CheckCertificationResponseDto> checkCertification(CheckCertificationRequestDto dto) {
+        try {
+
+            String userId = dto.getId();
+            String email = dto.getEmail();
+            String certificationNumber = dto.getCertificationNumber();
+
+            CertificationEntity certificationEntity = certificationRepository.findByUserId(userId);
+            if (certificationEntity == null) return CheckCertificationResponseDto.certificationFail();
+
+            boolean isMatched = certificationEntity.getEmail().equals(email) && certificationEntity.getCertificationNumber().equals(certificationNumber);
+            if (!isMatched) return CheckCertificationResponseDto.certificationFail();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return CheckCertificationResponseDto.success();
     }
     
 }
