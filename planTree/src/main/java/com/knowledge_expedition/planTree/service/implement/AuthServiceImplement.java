@@ -1,16 +1,21 @@
 package com.knowledge_expedition.planTree.service.implement;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.knowledge_expedition.planTree.dto.request.auth.CheckCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
+import com.knowledge_expedition.planTree.dto.request.auth.SignUpRequestDto;
 import com.knowledge_expedition.planTree.dto.response.ResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.CheckCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.EmailCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.IdCheckResponseDto;
+import com.knowledge_expedition.planTree.dto.response.auth.SignUpResponseDto;
 import com.knowledge_expedition.planTree.entity.CertificationEntity;
+import com.knowledge_expedition.planTree.entity.UserEntity;
 import com.knowledge_expedition.planTree.provider.EmailProvider;
 import com.knowledge_expedition.planTree.repository.CertificationRepository;
 import com.knowledge_expedition.planTree.repository.UserRepository;
@@ -26,6 +31,8 @@ public class AuthServiceImplement implements AuthService {
     private final CertificationRepository certificationRepository;
 
     private final EmailProvider emailProvider;
+
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
     @Override
     public ResponseEntity<? super IdCheckResponseDto> idCheck(IdCheckRequestDto dto) {
@@ -104,6 +111,42 @@ public class AuthServiceImplement implements AuthService {
         }
 
         return CheckCertificationResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super SignUpResponseDto> signUp(SignUpRequestDto dto) {
+        
+        try {
+
+            String userId = dto.getId();
+            boolean isExistId = userRepository.existsByUserId(userId);
+            if (isExistId) return SignUpResponseDto.duplicateId();
+
+            String email = dto.getEmail();
+            String certificationNumber = dto.getCertificationNumber();
+            
+            CertificationEntity certificationEntity = certificationRepository.findByUserId(userId);
+            boolean isMatched = 
+                certificationEntity.getEmail().equals(email) && 
+                certificationEntity.getCertificationNumber().equals(certificationNumber);
+            if (!isMatched) return SignUpResponseDto.certificationFail();
+
+            String password = dto.getPassword();
+            String encodedPassword = passwordEncoder.encode(password);
+            dto.setPassword(encodedPassword);
+
+            UserEntity userEntity = new UserEntity(dto);
+            userRepository.save(userEntity);
+
+            //certificationRepository.delete(certificationEntity);
+            certificationRepository.deleteByUserId(userId);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return SignUpResponseDto.success();
     }
     
 }

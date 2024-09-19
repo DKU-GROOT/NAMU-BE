@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.knowledge_expedition.planTree.dto.request.auth.CheckCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
+import com.knowledge_expedition.planTree.dto.request.auth.SignUpRequestDto;
 import com.knowledge_expedition.planTree.dto.response.auth.CheckCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.EmailCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.IdCheckResponseDto;
+import com.knowledge_expedition.planTree.dto.response.auth.SignUpResponseDto;
 import com.knowledge_expedition.planTree.service.AuthService;
 
 import jakarta.validation.Valid;
@@ -47,6 +49,14 @@ public class AuthController {
         @RequestBody @Valid CheckCertificationRequestDto requestBody
     ) {
         ResponseEntity<? super CheckCertificationResponseDto> response = authService.checkCertification(requestBody);
+        return response;
+    }
+    
+    @PostMapping("/sign-up")
+    public ResponseEntity<? super SignUpResponseDto> signUp(
+        @RequestBody @Valid SignUpRequestDto requestBody
+    ) {
+        ResponseEntity<? super SignUpResponseDto> response = authService.signUp(requestBody);
         return response;
     }
     
