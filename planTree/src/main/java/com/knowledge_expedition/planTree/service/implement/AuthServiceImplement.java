@@ -8,15 +8,18 @@ import org.springframework.stereotype.Service;
 import com.knowledge_expedition.planTree.dto.request.auth.CheckCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
+import com.knowledge_expedition.planTree.dto.request.auth.SignInRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.SignUpRequestDto;
 import com.knowledge_expedition.planTree.dto.response.ResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.CheckCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.EmailCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.IdCheckResponseDto;
+import com.knowledge_expedition.planTree.dto.response.auth.SignInResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.SignUpResponseDto;
 import com.knowledge_expedition.planTree.entity.CertificationEntity;
 import com.knowledge_expedition.planTree.entity.UserEntity;
 import com.knowledge_expedition.planTree.provider.EmailProvider;
+import com.knowledge_expedition.planTree.provider.JwtProvider;
 import com.knowledge_expedition.planTree.repository.CertificationRepository;
 import com.knowledge_expedition.planTree.repository.UserRepository;
 import com.knowledge_expedition.planTree.service.AuthService;
@@ -30,6 +33,7 @@ public class AuthServiceImplement implements AuthService {
     private final UserRepository userRepository;
     private final CertificationRepository certificationRepository;
 
+    private final JwtProvider jwtProvider;
     private final EmailProvider emailProvider;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -148,5 +152,33 @@ public class AuthServiceImplement implements AuthService {
 
         return SignUpResponseDto.success();
     }
+
+    @Override
+    public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
+
+        String token = null;
+
+        try {
+            
+            String userId = dto.getId();
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            if ( userEntity == null ) return SignInResponseDto.signInFail();
+
+            String password = dto.getPassword();
+            String encodedPassword = userEntity.getPassword();
+            boolean isMatched = passwordEncoder.matches(password, encodedPassword);
+            if (!isMatched) return SignInResponseDto.signInFail();
+
+            token = jwtProvider.create(userId);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return SignInResponseDto.success(token);
+    }
+
+    
     
 }

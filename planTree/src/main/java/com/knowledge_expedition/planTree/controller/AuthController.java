@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.knowledge_expedition.planTree.dto.request.auth.CheckCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.EmailCertificationRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.IdCheckRequestDto;
+import com.knowledge_expedition.planTree.dto.request.auth.SignInRequestDto;
 import com.knowledge_expedition.planTree.dto.request.auth.SignUpRequestDto;
 import com.knowledge_expedition.planTree.dto.response.auth.CheckCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.EmailCertificationResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.IdCheckResponseDto;
+import com.knowledge_expedition.planTree.dto.response.auth.SignInResponseDto;
 import com.knowledge_expedition.planTree.dto.response.auth.SignUpResponseDto;
 import com.knowledge_expedition.planTree.service.AuthService;
 
@@ -57,6 +59,14 @@ public class AuthController {
         @RequestBody @Valid SignUpRequestDto requestBody
     ) {
         ResponseEntity<? super SignUpResponseDto> response = authService.signUp(requestBody);
+        return response;
+    }
+
+    @PostMapping("/sign-in")
+    public ResponseEntity<? super SignInResponseDto> signIn(
+        @RequestBody @Valid SignInRequestDto requestBody
+    ) {
+        ResponseEntity<? super SignInResponseDto> response = authService.signIn(requestBody);
         return response;
     }
     
