@@ -4,12 +4,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.groot.namu.dto.request.auth.CheckCertificationRequestDto;
 import com.groot.namu.dto.request.auth.EmailCertificationRequestDto;
-import com.groot.namu.dto.request.auth.IdCheckRequestDto;
+import com.groot.namu.dto.request.auth.EmailCheckRequestDto;
 import com.groot.namu.dto.request.auth.SignInRequestDto;
 import com.groot.namu.dto.request.auth.SignUpRequestDto;
 import com.groot.namu.dto.response.auth.CheckCertificationResponseDto;
 import com.groot.namu.dto.response.auth.EmailCertificationResponseDto;
-import com.groot.namu.dto.response.auth.IdCheckResponseDto;
+import com.groot.namu.dto.response.auth.EmailCheckResponseDto;
 import com.groot.namu.dto.response.auth.SignInResponseDto;
 import com.groot.namu.dto.response.auth.SignUpResponseDto;
 import com.groot.namu.service.AuthService;
@@ -30,11 +30,11 @@ public class AuthController {
     
     private final AuthService authService;
 
-    @PostMapping("/id-check")
-    public ResponseEntity<? super IdCheckResponseDto> idCheck (
-        @RequestBody @Valid IdCheckRequestDto requestBody
+    @PostMapping("/email-check")
+    public ResponseEntity<? super EmailCheckResponseDto> emailCheck (
+        @RequestBody @Valid EmailCheckRequestDto requestBody
     ) {
-        ResponseEntity<? super IdCheckResponseDto> response = authService.idCheck(requestBody);
+        ResponseEntity<? super EmailCheckResponseDto> response = authService.emailCheck(requestBody);
         return response;
     }
     

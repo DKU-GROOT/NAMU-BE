@@ -10,9 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CheckCertificationRequestDto {
-    
-    @NotBlank
-    private String id;
 
     @Email
     @NotBlank

@@ -48,13 +48,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
 
                 //id가 일치하는지 검증
-                String userId = jwtProvider.validate(token);
-                if (userId == null) {
+                String email = jwtProvider.validate(token);
+                if (email == null) {
                     filterChain.doFilter(request, response);
                     return;
                 }
 
-                UserEntity UserEntity = userRepository.findByUserId(userId);
+                UserEntity UserEntity = userRepository.findByEmail(email);
                 String role = UserEntity.getRole();     // role : ROLE_USER, ROLE_ADMIN
 
                 List<GrantedAuthority> authorities = new ArrayList<>();
@@ -62,7 +62,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
                 AbstractAuthenticationToken authenticationToken = 
-                    new UsernamePasswordAuthenticationToken(userId, null, authorities);
+                    new UsernamePasswordAuthenticationToken(email, null, authorities);
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 securityContext.setAuthentication(authenticationToken);

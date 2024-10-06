@@ -4,6 +4,7 @@ public interface ResponseMessage {
     String SUCCESS = "success";
 
     String VALIDATION_FAIL = "validation failed";
+    String DUPLICATE_EMAIL = "duplicated email";
     String DUPLICATE_ID = "duplicate id";
     
     String SIGN_IN_FAIL = "login informaion mismatch";

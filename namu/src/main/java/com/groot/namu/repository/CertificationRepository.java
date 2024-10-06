@@ -11,9 +11,9 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface CertificationRepository extends JpaRepository<CertificationEntity, String> {
 
-    CertificationEntity findByUserId(String userId);
+    CertificationEntity findByEmail(String email);
 
     @Transactional
-    void deleteByUserId(String userId);
+    void deleteByEmail(String email);
     
 }

@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class IdCheckRequestDto {
+public class EmailCheckRequestDto {
     
     @NotBlank
-    private String id;
+    private String email;
 }

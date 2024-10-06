@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.groot.namu.dto.request.auth.CheckCertificationRequestDto;
 import com.groot.namu.dto.request.auth.EmailCertificationRequestDto;
-import com.groot.namu.dto.request.auth.IdCheckRequestDto;
+import com.groot.namu.dto.request.auth.EmailCheckRequestDto;
 import com.groot.namu.dto.request.auth.SignInRequestDto;
 import com.groot.namu.dto.request.auth.SignUpRequestDto;
 import com.groot.namu.dto.response.ResponseDto;
 import com.groot.namu.dto.response.auth.CheckCertificationResponseDto;
 import com.groot.namu.dto.response.auth.EmailCertificationResponseDto;
-import com.groot.namu.dto.response.auth.IdCheckResponseDto;
+import com.groot.namu.dto.response.auth.EmailCheckResponseDto;
 import com.groot.namu.dto.response.auth.SignInResponseDto;
 import com.groot.namu.dto.response.auth.SignUpResponseDto;
 import com.groot.namu.entity.CertificationEntity;
@@ -39,20 +39,20 @@ public class AuthServiceImplement implements AuthService {
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     
     @Override
-    public ResponseEntity<? super IdCheckResponseDto> idCheck(IdCheckRequestDto dto) {
+    public ResponseEntity<? super EmailCheckResponseDto> emailCheck(EmailCheckRequestDto dto) {
         
         try {
 
-            String userId = dto.getId();
-            boolean isExistId = userRepository.existsByUserId(userId);
-            if (isExistId) return IdCheckResponseDto.duplicatedId();
+            String email = dto.getEmail();
+            boolean isExistId = userRepository.existsByEmail(email);
+            if (isExistId) return EmailCheckResponseDto.duplicatedId();
             
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return IdCheckResponseDto.success();
+        return EmailCheckResponseDto.success();
     }
 
     @Override
@@ -60,11 +60,10 @@ public class AuthServiceImplement implements AuthService {
         
         try {
 
-            String userId = dto.getId();
             String email = dto.getEmail();
 
             //존재하는 이메일인지 확인
-            boolean isExistId = userRepository.existsByUserId(userId);
+            boolean isExistId = userRepository.existsByEmail(email);
             if (isExistId) return EmailCertificationResponseDto.duplicateId();
 
             //인증번호 생성
@@ -75,7 +74,7 @@ public class AuthServiceImplement implements AuthService {
             if (!isSuccessed) return EmailCertificationResponseDto.mailSendFail();
 
             //메일 전송 결과 저장
-            CertificationEntity certificationEntity = new CertificationEntity(userId, email, certificationNumber);
+            CertificationEntity certificationEntity = new CertificationEntity(email, certificationNumber);
             certificationRepository.save(certificationEntity);
             
         } catch (Exception exception) {
@@ -99,11 +98,10 @@ public class AuthServiceImplement implements AuthService {
     public ResponseEntity<? super CheckCertificationResponseDto> checkCertification(CheckCertificationRequestDto dto) {
         try {
 
-            String userId = dto.getId();
             String email = dto.getEmail();
             String certificationNumber = dto.getCertificationNumber();
 
-            CertificationEntity certificationEntity = certificationRepository.findByUserId(userId);
+            CertificationEntity certificationEntity = certificationRepository.findByEmail(email);
             if (certificationEntity == null) return CheckCertificationResponseDto.certificationFail();
 
             boolean isMatched = certificationEntity.getEmail().equals(email) && certificationEntity.getCertificationNumber().equals(certificationNumber);
@@ -122,14 +120,13 @@ public class AuthServiceImplement implements AuthService {
         
         try {
 
-            String userId = dto.getId();
-            boolean isExistId = userRepository.existsByUserId(userId);
+            String email = dto.getEmail();
+            boolean isExistId = userRepository.existsByEmail(email);
             if (isExistId) return SignUpResponseDto.duplicateId();
 
-            String email = dto.getEmail();
             String certificationNumber = dto.getCertificationNumber();
             
-            CertificationEntity certificationEntity = certificationRepository.findByUserId(userId);
+            CertificationEntity certificationEntity = certificationRepository.findByEmail(email);
             boolean isMatched = 
                 certificationEntity.getEmail().equals(email) && 
                 certificationEntity.getCertificationNumber().equals(certificationNumber);
@@ -143,7 +140,7 @@ public class AuthServiceImplement implements AuthService {
             userRepository.save(userEntity);
 
             //certificationRepository.delete(certificationEntity);
-            certificationRepository.deleteByUserId(userId);
+            certificationRepository.deleteByEmail(email);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -157,11 +154,13 @@ public class AuthServiceImplement implements AuthService {
     public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
 
         String token = null;
+        UserEntity userEntity;
+        String email;
 
         try {
             
-            String userId = dto.getId();
-            UserEntity userEntity = userRepository.findByUserId(userId);
+            email = dto.getEmail();
+            userEntity = userRepository.findByEmail(email);
             if ( userEntity == null ) return SignInResponseDto.signInFail();
 
             String password = dto.getPassword();
@@ -169,14 +168,14 @@ public class AuthServiceImplement implements AuthService {
             boolean isMatched = passwordEncoder.matches(password, encodedPassword);
             if (!isMatched) return SignInResponseDto.signInFail();
 
-            token = jwtProvider.create(userId);
+            token = jwtProvider.create(email);
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return SignInResponseDto.success(token);
+        return SignInResponseDto.success(token, userEntity);
     }
 
     

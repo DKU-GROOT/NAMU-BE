@@ -10,14 +10,14 @@ import com.groot.namu.dto.response.ResponseDto;
 import lombok.Getter;
 
 @Getter
-public class IdCheckResponseDto extends ResponseDto {
+public class EmailCheckResponseDto extends ResponseDto {
     
-    private IdCheckResponseDto() {
+    private EmailCheckResponseDto() {
         super();
     }
 
-    public static ResponseEntity<IdCheckResponseDto> success() {
-        IdCheckResponseDto responseBody = new IdCheckResponseDto();
+    public static ResponseEntity<EmailCheckResponseDto> success() {
+        EmailCheckResponseDto responseBody = new EmailCheckResponseDto();
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 

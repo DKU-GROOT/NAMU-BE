@@ -16,26 +16,35 @@ import lombok.NoArgsConstructor;
 @Table(name="user")
 public class UserEntity {
     @Id
-    private String userId;
-    private String password;
     private String email;
+    private String password;
     private String type;
     private String role;
+    private String nickname;
+    private int point;
+    private int treeLevel;
+    private boolean notice;
 
     public UserEntity (SignUpRequestDto dto) {
-        this.userId = dto.getId();
-        this.password = dto.getPassword();
         this.email = dto.getEmail();
+        this.password = dto.getPassword();
+        this.nickname = dto.getNickname();
+        this.treeLevel = 1;
+        this.point = 0;
         this.type = "app";
         this.role = "ROLE_USER";
+        this.notice = true;
     }
 
     public UserEntity (String userId, String email, String type) {
-        this.userId = userId;
-        this.password = "P!ssw0rd";
         this.email = email;
+        this.password = "P!ssw0rd";
+        this.nickname = "관리자";
+        this.treeLevel = 1;
+        this.point = 0;
         this.type = type;
         this.role = "ROLE_USER";
+        this.notice = true;
     }
 
 }
