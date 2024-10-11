@@ -22,14 +22,12 @@ public class UserEntity {
     private String role;
     private String nickname;
     private int point;
-    private int treeLevel;
     private boolean notice;
 
     public UserEntity (SignUpRequestDto dto) {
         this.email = dto.getEmail();
         this.password = dto.getPassword();
         this.nickname = dto.getNickname();
-        this.treeLevel = 1;
         this.point = 0;
         this.type = "app";
         this.role = "ROLE_USER";
@@ -40,7 +38,6 @@ public class UserEntity {
         this.email = email;
         this.password = "P!ssw0rd";
         this.nickname = "관리자";
-        this.treeLevel = 1;
         this.point = 0;
         this.type = type;
         this.role = "ROLE_USER";

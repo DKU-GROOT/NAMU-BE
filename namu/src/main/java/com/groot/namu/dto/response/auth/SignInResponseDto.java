@@ -32,7 +32,6 @@ public class SignInResponseDto extends ResponseDto {
         this.expirationTime = 3600;
         this.nickname = user.getNickname();
         this.point = user.getPoint();
-        this.treeLevel = user.getTreeLevel();
         this.notice = user.isNotice();
 
     }

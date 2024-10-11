@@ -17,10 +17,12 @@ import com.groot.namu.dto.response.auth.EmailCheckResponseDto;
 import com.groot.namu.dto.response.auth.SignInResponseDto;
 import com.groot.namu.dto.response.auth.SignUpResponseDto;
 import com.groot.namu.entity.CertificationEntity;
+import com.groot.namu.entity.TreeEntity;
 import com.groot.namu.entity.UserEntity;
 import com.groot.namu.provider.EmailProvider;
 import com.groot.namu.provider.JwtProvider;
 import com.groot.namu.repository.CertificationRepository;
+import com.groot.namu.repository.TreeRepository;
 import com.groot.namu.repository.UserRepository;
 import com.groot.namu.service.AuthService;
 
@@ -32,6 +34,7 @@ public class AuthServiceImplement implements AuthService {
 
     private final UserRepository userRepository;
     private final CertificationRepository certificationRepository;
+    private final TreeRepository treeRepository;
 
     private final JwtProvider jwtProvider;
     private final EmailProvider emailProvider;
@@ -138,6 +141,8 @@ public class AuthServiceImplement implements AuthService {
 
             UserEntity userEntity = new UserEntity(dto);
             userRepository.save(userEntity);
+            TreeEntity treeEntity = new TreeEntity(email);
+            treeRepository.save(treeEntity);
 
             //certificationRepository.delete(certificationEntity);
             certificationRepository.deleteByEmail(email);
