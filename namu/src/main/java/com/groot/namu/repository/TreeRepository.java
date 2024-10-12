@@ -8,6 +8,8 @@ import com.groot.namu.entity.TreeEntity;
 @Repository
 public interface TreeRepository extends JpaRepository<TreeEntity, String>{
 
+    boolean existsByEmail(String email);
+
     TreeEntity findByEmail(String Email);
     
 } 

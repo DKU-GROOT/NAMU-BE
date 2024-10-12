@@ -39,7 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             
             try {
 
-                String token = parseBearerToekn(request);
+                String token = parseBearerToken(request);
 
                 //유효한 bearer토큰인지 검증
                 if (token == null) {
@@ -77,7 +77,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 
     }
 
-    private String parseBearerToekn (HttpServletRequest request) {
+    private String parseBearerToken (HttpServletRequest request) {
 
         String authorization = request.getHeader("Authorization");
 
