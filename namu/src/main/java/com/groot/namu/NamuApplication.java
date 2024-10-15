@@ -10,4 +10,5 @@ public class NamuApplication {
 		SpringApplication.run(NamuApplication.class, args);
 	}
 		System.out.println("Hello world");
+		System.out.println("Hello world222");
 }
