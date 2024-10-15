@@ -54,6 +54,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/api/v1/tree/**").permitAll()
                 .requestMatchers("/api/v1/user/**").hasRole("USER")
                 .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/study/**").permitAll()
                 .anyRequest().authenticated()
             )
             .oauth2Login(oauth2 -> oauth2
@@ -84,6 +85,8 @@ public class WebSecurityConfig {
         return source;
 
     }
+
+    
 }
 
 class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint {

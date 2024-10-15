@@ -10,6 +10,7 @@ public interface ResponseCode {
     
     String SIGN_IN_FAIL = "SF";
     String CERTIFRCATION_FAIL = "CF";
+    String QUESTION_FAIL = "QF";
 
     String MAIL_FAIL = "MF";
     String DATABASE_ERROR = "DBE";

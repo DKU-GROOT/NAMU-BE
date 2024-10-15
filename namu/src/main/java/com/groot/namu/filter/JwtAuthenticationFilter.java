@@ -19,7 +19,6 @@ import com.groot.namu.entity.UserEntity;
 import com.groot.namu.provider.JwtProvider;
 import com.groot.namu.repository.UserRepository;
 
-import jakarta.el.ELException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,60 +33,71 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
 
     @Override
-    protected void doFilterInternal (HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-            
-            try {
 
-                String token = parseBearerToken(request);
+        String token = parseBearerToken(request);
 
-                //유효한 bearer토큰인지 검증
-                if (token == null) {
-                    filterChain.doFilter(request, response);
-                    return;
-                }
+        if (token == null) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
-                //id가 일치하는지 검증
-                String email = jwtProvider.validate(token);
-                if (email == null) {
-                    filterChain.doFilter(request, response);
-                    return;
-                }
-
-                UserEntity UserEntity = userRepository.findByEmail(email);
-                String role = UserEntity.getRole();     // role : ROLE_USER, ROLE_ADMIN
-
-                List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(role));
-
-                SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-                AbstractAuthenticationToken authenticationToken = 
-                    new UsernamePasswordAuthenticationToken(email, null, authorities);
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                securityContext.setAuthentication(authenticationToken);
-                SecurityContextHolder.setContext(securityContext);
-
-
-            } catch (ELException exception) {
-                exception.printStackTrace();
+        try {
+            // JWT 유효성 검증
+            String email = jwtProvider.validate(token);
+            if (email == null) {
+                // 유효하지 않은 토큰인 경우
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("{\"code\": \"INVALID_TOKEN\", \"message\": \"Invalid or expired token.\"}");
+                return;
             }
 
-            filterChain.doFilter(request, response);
-                
+            // 사용자 찾기
+            UserEntity userEntity = userRepository.findByEmail(email);
+            if (userEntity == null) {
+                // 사용자 찾기 실패
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("{\"code\": \"USER_NOT_FOUND\", \"message\": \"User not found.\"}");
+                return;
+            }
+
+            // 사용자 역할 가져오기
+            String role = userEntity.getRole();
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(role));
+
+            // Spring Security Context 설정
+            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+            AbstractAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(email, null, authorities);
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            securityContext.setAuthentication(authenticationToken);
+            SecurityContextHolder.setContext(securityContext);
+
+        } catch (Exception e) {
+            // 예외 처리: JWT 처리 중 오류 발생 시
+            e.printStackTrace(); // 로그 출력 추가
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // Bad Request로 변경
+            response.getWriter().write("{\"code\": \"JWT_ERROR\", \"message\": \"Error processing JWT.\"}");
+            return;
+        } 
+
+        filterChain.doFilter(request, response);
     }
 
-    private String parseBearerToken (HttpServletRequest request) {
-
+    private String parseBearerToken(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
-
         boolean hasAuthorization = StringUtils.hasText(authorization);
         if (!hasAuthorization) return null;
 
         boolean isBearer = authorization.startsWith("Bearer ");
         if (!isBearer) return null;
 
-        String token = authorization.substring(7);
-        return token;
+        return authorization.substring(7);
     }
 }
