@@ -9,6 +9,7 @@ import com.groot.namu.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, String> {
 
     boolean existsByEmail(String email);
+    boolean existsByNickname(String nickname);
 
     UserEntity findByEmail(String Email);
     

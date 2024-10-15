@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 import com.groot.namu.dto.request.auth.CheckCertificationRequestDto;
 import com.groot.namu.dto.request.auth.EmailCertificationRequestDto;
 import com.groot.namu.dto.request.auth.EmailCheckRequestDto;
+import com.groot.namu.dto.request.auth.NicknameCheckRequestDto;
 import com.groot.namu.dto.request.auth.SignInRequestDto;
 import com.groot.namu.dto.request.auth.SignUpRequestDto;
 import com.groot.namu.dto.response.ResponseDto;
 import com.groot.namu.dto.response.auth.CheckCertificationResponseDto;
 import com.groot.namu.dto.response.auth.EmailCertificationResponseDto;
 import com.groot.namu.dto.response.auth.EmailCheckResponseDto;
+import com.groot.namu.dto.response.auth.NicknameCheckResponseDto;
 import com.groot.namu.dto.response.auth.SignInResponseDto;
 import com.groot.namu.dto.response.auth.SignUpResponseDto;
 import com.groot.namu.entity.CertificationEntity;
@@ -116,6 +118,23 @@ public class AuthServiceImplement implements AuthService {
         }
 
         return CheckCertificationResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super NicknameCheckResponseDto> nicknameCheck(NicknameCheckRequestDto dto) {
+        
+        try {
+
+            String nickname = dto.getNickname();
+            boolean isExistId = userRepository.existsByNickname(nickname);
+            if (isExistId) return NicknameCheckResponseDto.duplicatedId();
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return NicknameCheckResponseDto.success();
     }
 
     @Override
