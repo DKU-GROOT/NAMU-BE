@@ -44,4 +44,14 @@ public class UserEntity {
         this.notice = true;
     }
 
+    public UserEntity (String email, String type) {
+        this.email = email;
+        this.password = "P!ssw0rd";
+        this.nickname = "null";
+        this.point = 0;
+        this.type = "kakao";
+        this.role = "ROLE_USER";
+        this.notice = true;
+    }
+
 }

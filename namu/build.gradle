@@ -39,7 +39,3 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 }
-
-tasks.named('test') {
-	useJUnitPlatform()
-}

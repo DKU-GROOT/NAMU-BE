@@ -13,21 +13,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomOAuth2User implements OAuth2User {
 
-    private String userId;
+    private Map<String, Object> attributes;
+    private String email;
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Map<String, Object> getAttributes() {
-        return null;
+        return attributes;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getName() {
-        return this.userId;
+        return this.email;
     }
     
 }
