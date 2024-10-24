@@ -9,6 +9,4 @@ public class NamuApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NamuApplication.class, args);
 	}
-		System.out.println("Hello world");
-		System.out.println("Hello world222");
 }
