@@ -4,8 +4,9 @@ import com.groot.namu.user.entity.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-@Entity
+@Entity(name="tree")
 @Getter
+@Table(name="tree")
 public class Tree {
     public Tree(User user) {
         this.email = user.getEmail();

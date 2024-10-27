@@ -5,8 +5,9 @@ import org.antlr.v4.runtime.tree.Tree;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-@Entity
+@Entity(name="user")
 @Getter
+@Table(name="user")
 public class User {
     @Id
     private String email;
