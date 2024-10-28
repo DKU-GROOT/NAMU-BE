@@ -27,5 +27,4 @@ public class User {
         this.point = 0;
         this.notification = true;
     }
-
 }
