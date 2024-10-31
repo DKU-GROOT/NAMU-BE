@@ -10,7 +10,7 @@ import com.groot.namu.global.dto.ResponseDto;
 import lombok.Getter;
 
 @Getter
-public class NicknameCheckResponseDto {
+public class NicknameCheckResponseDto extends ResponseDto{
     private NicknameCheckResponseDto() {
         super();
     }
