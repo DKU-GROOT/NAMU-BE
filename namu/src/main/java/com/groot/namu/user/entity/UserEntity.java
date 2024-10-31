@@ -13,6 +13,7 @@ public class UserEntity {
     private String email;
     private String password;
     private String nickname;
+    private String role;
     private int point;
     private boolean notice;
 
@@ -20,6 +21,7 @@ public class UserEntity {
         this.email = dto.getEmail();
         this.password = dto.getPassword();
         this.nickname = dto.getNickname();
+        this.role = "ROLE_USER";
         this.point = 0;
         this.notice = true;
     }
