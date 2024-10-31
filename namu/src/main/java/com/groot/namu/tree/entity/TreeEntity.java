@@ -7,24 +7,19 @@ import lombok.Getter;
 @Entity(name="tree")
 @Getter
 @Table(name="tree")
-public class Tree {
-    public Tree(User user) {
-        this.email = user.getEmail();
-        this.treeLevel = 1;
-        this.treePoint = 10;
-        this.treeDecoTop = null;
-        this.treeDecoBottom = null;    
-    }
-
+public class TreeEntity {
     @Id
     private String email;
-
     private int treeLevel;
     private int treePoint;
     private String treeDecoTop;
     private String treeDecoBottom;
 
-    @OneToOne
-    @JoinColumn(name = "email", referencedColumnName = "email")
-    private User user;
+    public TreeEntity(String email) {
+        this.email = email;
+        this.treeLevel = 1;
+        this.treePoint = 10;
+        this.treeDecoTop = null;
+        this.treeDecoBottom = null;
+    }
 }
