@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.groot.namu.user.dto.request.SignUpRequestDto;
+import com.groot.namu.user.dto.request.*;
+import com.groot.namu.user.dto.response.*;
+import com.groot.namu.user.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +17,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/namu/v2")
 public class UserController {
+
+    private final UserService userService;
+
     @PostMapping("/email-check")
     public ResponseEntity<? super EmailCheckResponseDto> emailCheck (
         @RequestBody @Valid EmailCheckRequestDto requestBody
     ) {
-        ResponseEntity<? super EmailCheckResponseDto> response = authService.emailCheck(requestBody);
+        ResponseEntity<? super EmailCheckResponseDto> response = userService.emailCheck(requestBody);
         return response;
     }
     
@@ -27,7 +32,7 @@ public class UserController {
     public  ResponseEntity<? super EmailCertificationResponseDto> emailCertification (
         @RequestBody @Valid EmailCertificationRequestDto requestBody
         ) {
-            ResponseEntity<? super EmailCertificationResponseDto> response = authService.emailCertification(requestBody);
+            ResponseEntity<? super EmailCertificationResponseDto> response = userService.emailCertification(requestBody);
             return response;
         }
 
@@ -35,7 +40,7 @@ public class UserController {
     public ResponseEntity<? super CheckCertificationResponseDto> checkCertification (
         @RequestBody @Valid CheckCertificationRequestDto requestBody
     ) {
-        ResponseEntity<? super CheckCertificationResponseDto> response = authService.checkCertification(requestBody);
+        ResponseEntity<? super CheckCertificationResponseDto> response = userService.checkCertification(requestBody);
         return response;
     }
 
@@ -43,7 +48,7 @@ public class UserController {
     public ResponseEntity<? super NicknameCheckResponseDto> nicknameCheck (
         @RequestBody @Valid NicknameCheckRequestDto requestBody
     ) {
-        ResponseEntity<? super NicknameCheckResponseDto> response = authService.nicknameCheck(requestBody);
+        ResponseEntity<? super NicknameCheckResponseDto> response = userService.nicknameCheck(requestBody);
         return response;
     }
     
@@ -51,7 +56,7 @@ public class UserController {
     public ResponseEntity<? super SignUpResponseDto> signUp(
         @RequestBody @Valid SignUpRequestDto requestBody
     ) {
-        ResponseEntity<? super SignUpResponseDto> response = authService.signUp(requestBody);
+        ResponseEntity<? super SignUpResponseDto> response = userService.signUp(requestBody);
         return response;
     }
 
@@ -59,7 +64,7 @@ public class UserController {
     public ResponseEntity<? super SignInResponseDto> signIn(
         @RequestBody @Valid SignInRequestDto requestBody
     ) {
-        ResponseEntity<? super SignInResponseDto> response = authService.signIn(requestBody);
+        ResponseEntity<? super SignInResponseDto> response = userService.signIn(requestBody);
         return response;
     }
 }
