@@ -10,7 +10,7 @@ import com.groot.namu.global.dto.ResponseDto;
 import lombok.Getter;
 
 @Getter
-public class EmailCertificationResponseDto {
+public class EmailCertificationResponseDto extends ResponseDto{
     private EmailCertificationResponseDto() {
         super();
     }
