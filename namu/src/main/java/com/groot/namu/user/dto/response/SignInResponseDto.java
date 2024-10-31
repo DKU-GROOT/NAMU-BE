@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-public class SignInResponseDto {
+public class SignInResponseDto extends ResponseDto{
     private String token;
     private int expirationTime;
     private String nickname;
