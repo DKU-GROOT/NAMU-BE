@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class NicknameCheckRuquestDto {
+public class NicknameCheckRequestDto {
     @NotBlank
     private String nickname;
 }
