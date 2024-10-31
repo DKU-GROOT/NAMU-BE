@@ -8,7 +8,6 @@ import com.groot.namu.global.common.ResponseMessage;
 import com.groot.namu.global.dto.ResponseDto;
 import com.groot.namu.user.entity.UserEntity;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
