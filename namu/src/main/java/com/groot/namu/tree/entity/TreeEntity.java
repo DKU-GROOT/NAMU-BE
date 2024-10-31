@@ -1,7 +1,6 @@
 package com.groot.namu.tree.entity;
 
-import com.groot.namu.user.entity.*;
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.Getter;
 
 @Entity(name="tree")
