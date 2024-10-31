@@ -1,23 +1,20 @@
 package com.groot.namu.user.service;
 
-import java.util.Optional;
+import org.springframework.http.ResponseEntity;
 
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.groot.namu.user.dto.request.CheckCertificationRequestDto;
+import com.groot.namu.user.dto.request.EmailCertificationRequestDto;
+import com.groot.namu.user.dto.request.EmailCheckRequestDto;
+import com.groot.namu.user.dto.request.SignInRequestDto;
+import com.groot.namu.user.dto.request.SignUpRequestDto;
+import com.groot.namu.user.dto.response.CheckCertificationResponseDto;
+import com.groot.namu.user.dto.response.SignInResponseDto;
 
-import com.groot.namu.tree.entity.Tree;
-import com.groot.namu.tree.repository.TreeRepository;
-import com.groot.namu.user.entity.User;
-import com.groot.namu.user.repository.UserRepository;
-
-import lombok.RequiredArgsConstructor;
-
-@Service
-@RequiredArgsConstructor
-public class UserService {
-    private final UserRepository userRepository;
-    private final TreeRepository treeRepository;
-
-    
+public interface UserService {
+    ResponseEntity<? super EmailCheckResponseDto> emailCheck(EmailCheckRequestDto dto);
+    ResponseEntity<? super EmailCertificationResponseDto> emailCertification(EmailCertificationRequestDto dto);
+    ResponseEntity<? super CheckCertificationResponseDto> checkCertification(CheckCertificationRequestDto dto);
+    ResponseEntity<? super SignUpResponseDto> signUp (SignUpRequestDto dto);
+    ResponseEntity<? super SignInResponseDto> signIn (SignInRequestDto dto);
+    ResponseEntity<? super NicknameCheckResponseDto> nicknameCheck(NicknameCheckRequestDto dto);
 }
