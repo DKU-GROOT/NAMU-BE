@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/namu/v2")
+@RequestMapping("/namu/v2/auth")
 public class UserController {
 
     private final UserService userService;
