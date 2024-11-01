@@ -19,12 +19,6 @@ public class SignInResponseDto extends ResponseDto{
     private int treeLevel;
     private boolean notice;
 
-    private SignInResponseDto (String token) {
-        super();
-        this.token = token;
-        this.expirationTime = 3600;
-    }
-
     private SignInResponseDto (String token, UserEntity user) {
         super();
         this.token = token;
