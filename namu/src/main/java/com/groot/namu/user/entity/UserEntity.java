@@ -3,10 +3,14 @@ package com.groot.namu.user.entity;
 import com.groot.namu.user.dto.request.SignUpRequestDto;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity(name="user")
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="user")
 public class UserEntity {
      @Id
