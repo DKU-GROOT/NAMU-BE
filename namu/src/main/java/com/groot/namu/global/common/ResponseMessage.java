@@ -6,6 +6,7 @@ public interface ResponseMessage {
     String VALIDATION_FAIL = "validation failed";
     String DUPLICATE_EMAIL = "duplicated email";
     String DUPLICATE_ID = "duplicate id";
+    String ENTITY_NOT_FOND = "entity not found";
     
     String SIGN_IN_FAIL = "login informaion mismatch";
     String CERTIFRCATION_FAIL = "certification failed";
