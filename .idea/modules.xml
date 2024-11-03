@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/NAMU-BE.iml" filepath="$PROJECT_DIR$/.idea/NAMU-BE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/namu.main.iml" filepath="$PROJECT_DIR$/.idea/modules/namu.main.iml" />
     </modules>
   </component>
 </project>
