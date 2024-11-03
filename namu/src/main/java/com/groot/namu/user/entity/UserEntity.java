@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name="user")
 public class UserEntity {
-     @Id
+    @Id
     private String email;
     private String password;
     private String nickname;
