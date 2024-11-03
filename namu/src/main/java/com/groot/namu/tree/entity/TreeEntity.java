@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity(name="tree")
 @Getter
 @Table(name="tree")
+@NoArgsConstructor
 public class TreeEntity {
     @Id
     private String email;
