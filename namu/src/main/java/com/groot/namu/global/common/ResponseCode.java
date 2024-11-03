@@ -15,4 +15,6 @@ public interface ResponseCode {
     String DATABASE_ERROR = "DBE";
 
     String USER_NOT_EXISTS = "UNE";
+
+    String ENTITY_NOT_FOND = "ENF";
 }
