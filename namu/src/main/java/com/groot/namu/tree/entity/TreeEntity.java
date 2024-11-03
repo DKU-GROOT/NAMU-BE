@@ -5,9 +5,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name="tree")
 @Getter
+@Setter
 @Table(name="tree")
 @NoArgsConstructor
 public class TreeEntity {
