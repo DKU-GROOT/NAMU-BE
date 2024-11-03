@@ -14,6 +14,10 @@ import com.groot.namu.shop.dto.response.BuyItemResponseDto;
 import com.groot.namu.shop.dto.response.EquipItemResponseDto;
 import com.groot.namu.shop.dto.response.UnEquipItemResponseDto;
 import com.groot.namu.shop.dto.response.WaterTreeResponseDto;
+import com.groot.namu.shop.entity.ItemEntity;
+import com.groot.namu.shop.entity.UserItemEntity;
+import com.groot.namu.shop.repository.ItemRepository;
+import com.groot.namu.shop.repository.UserItemRepository;
 import com.groot.namu.shop.service.ShopService;
 import com.groot.namu.tree.entity.TreeEntity;
 import com.groot.namu.tree.repository.TreeRepository;
@@ -27,29 +31,130 @@ import lombok.RequiredArgsConstructor;
 public class ShopServiceImplement implements ShopService{
     private final UserRepository userRepository;
     private final TreeRepository treeRepository;
+    private final ItemRepository itemRepository;
+    private final UserItemRepository userItemRepository;
 
     @Override
     public ResponseEntity<? super AddItemListResponseDto> addItemList(AddItemListRequestDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addItemList'");
+        try {
+            ItemEntity itemEntity = new ItemEntity(dto);
+            itemRepository.save(itemEntity);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return AddItemListResponseDto.success();
     }
 
     @Override
     public ResponseEntity<? super BuyItemResponseDto> buyItem(BuyItemRequestDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buyItem'");
+        try {
+            String email = dto.getEmail();
+            String itemName = dto.getItemName();
+
+            ItemEntity itemEntity = itemRepository.findByName(itemName);
+            if (itemEntity == null) {
+                return ResponseDto.databaseError();
+            }
+
+            UserItemEntity userItemEntity = new UserItemEntity();
+            userItemEntity.setEmail(email);
+            userItemEntity.setItemName(itemName);
+            userItemEntity.setEquip(false);
+            userItemRepository.save(userItemEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return BuyItemResponseDto.success();
     }
 
     @Override
     public ResponseEntity<? super EquipItemResponseDto> equipItem(EquipItemRequestDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'equipItem'");
+        try {
+            String email = dto.getEmail();
+            String itemName = dto.getItemName();
+
+            UserItemEntity userItemEntity = userItemRepository.findByEmailAndItemName(email, itemName);
+            if (userItemEntity == null) {
+                return ResponseDto.databaseError();
+            }
+
+            userItemEntity.setEquip(true);
+            userItemRepository.save(userItemEntity);
+
+            ItemEntity itemEntity = itemRepository.findByName(itemName);
+            if (itemEntity == null) {
+                return ResponseDto.databaseError();
+            }
+
+            String itemType = itemEntity.getType();
+            TreeEntity treeEntity = treeRepository.findByEmail(email);
+            if(treeEntity == null) {
+                return ResponseDto.databaseError();
+            }
+
+            if ("top".equalsIgnoreCase(itemType)){
+                treeEntity.setTreeDecoTop(itemName);
+            } else if ("bottom".equalsIgnoreCase(itemType)){
+                treeEntity.setTreeDecoBottom(itemName);
+            } else {
+                return ResponseDto.databaseError();
+            }
+
+            treeRepository.save(treeEntity);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return EquipItemResponseDto.success();
     }
 
     @Override
     public ResponseEntity<? super UnEquipItemResponseDto> unEquipItem(UnEquipItemRequestDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'unEquipItem'");
+        try {
+            String email = dto.getEmail();
+            String itemName = dto.getItemName();
+
+            UserItemEntity userItemEntity = userItemRepository.findByEmailAndItemName(email, itemName);
+            if (userItemEntity == null) {
+                return ResponseDto.databaseError();
+            }
+
+            userItemEntity.setEquip(false);
+            userItemRepository.save(userItemEntity);
+
+            ItemEntity itemEntity = itemRepository.findByName(itemName);
+            if (itemEntity == null) {
+                return ResponseDto.databaseError();
+            }
+
+            String itemType = itemEntity.getType();
+            TreeEntity treeEntity = treeRepository.findByEmail(email);
+            if(treeEntity == null) {
+                return ResponseDto.databaseError();
+            }
+
+            if ("top".equalsIgnoreCase(itemType)){
+                treeEntity.setTreeDecoTop(null);
+            } else if ("bottom".equalsIgnoreCase(itemType)){
+                treeEntity.setTreeDecoBottom(null);
+            } else {
+                return ResponseDto.databaseError();
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return UnEquipItemResponseDto.success();
     }
 
     @Override
