@@ -4,11 +4,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groot.namu.checkList.dto.request.AddCheckListRequestDto;
+import com.groot.namu.checkList.dto.request.CompleteCheckListRequestDto;
 import com.groot.namu.checkList.dto.response.AddCheckListResponseDto;
+import com.groot.namu.checkList.dto.response.CompleteCheckListResponseDto;
 import com.groot.namu.checkList.entity.CheckListEntity;
 import com.groot.namu.checkList.repository.CheckListRepository;
 import com.groot.namu.checkList.service.CheckListService;
 import com.groot.namu.global.dto.ResponseDto;
+import com.groot.namu.user.entity.UserEntity;
+import com.groot.namu.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class CheckListServiceImplement implements CheckListService{
 
     private final CheckListRepository checkListRepository;
+    private final UserRepository userRepository;
 
     @Override
     public ResponseEntity<? super AddCheckListResponseDto> addCheckList(AddCheckListRequestDto dto) {
@@ -56,6 +61,44 @@ public class CheckListServiceImplement implements CheckListService{
         }
 
         return AddCheckListResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super CompleteCheckListResponseDto> completeCheckList(CompleteCheckListRequestDto dto) {
+        try {
+            String email = dto.getEmail();
+            String date = dto.getDate();
+            int num = dto.getNum();
+
+            CheckListEntity checkListEntity = checkListRepository.findByEmailAndDate(email, date);
+            UserEntity userEntity = userRepository.findByEmail(email);
+
+            if (checkListEntity == null) {
+                return ResponseDto.databaseError();
+            } else if( num == 1) {
+                checkListEntity.setCheckList1Complete(true);
+            } else if( num == 2) {
+                checkListEntity.setCheckList2Complete(true);
+            }else if( num == 3) {
+                checkListEntity.setCheckList3Complete(true);
+            }else if( num == 4) {
+                checkListEntity.setCheckList4Complete(true);
+            }else if( num == 5) {
+                checkListEntity.setCheckList5Complete(true);
+            } else{
+                return ResponseDto.databaseError();
+            } 
+
+            userEntity.setPoint(userEntity.getPoint() + 3);
+            checkListRepository.save(checkListEntity);
+            userRepository.save(userEntity);
+
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return CompleteCheckListResponseDto.success();
     }
     
 }
