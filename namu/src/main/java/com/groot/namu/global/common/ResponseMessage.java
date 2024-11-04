@@ -16,4 +16,7 @@ public interface ResponseMessage {
     String DATABASE_ERROR = "database error";
 
     String USER_NOT_EXISTS = "user is not exists";
+
+    String SUMMARY_FAIL = "making summary failed";
+    String EXAM_FAIL = "making exam failed";
 }

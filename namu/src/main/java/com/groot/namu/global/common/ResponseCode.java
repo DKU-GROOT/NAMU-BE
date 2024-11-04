@@ -17,4 +17,7 @@ public interface ResponseCode {
     String USER_NOT_EXISTS = "UNE";
 
     String ENTITY_NOT_FOND = "ENF";
+
+    String SUMMARY_FAIL = "SF";
+    String EXAM_FAIL = "EF";
 }

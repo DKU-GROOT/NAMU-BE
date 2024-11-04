@@ -1,7 +1,7 @@
 package com.groot.namu.study.dto.response;
 
-import com.groot.namu.study.common.ResponseCode;
-import com.groot.namu.study.common.ResponseMessage;
+import com.groot.namu.global.common.ResponseCode;
+import com.groot.namu.global.common.ResponseMessage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

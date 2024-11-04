@@ -2,9 +2,8 @@ package com.groot.namu.study.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groot.namu.study.common.ResponseCode;
-import com.groot.namu.study.common.ResponseMessage;
-import com.groot.namu.study.entity.ExamEntity;
+import com.groot.namu.global.common.ResponseCode;
+import com.groot.namu.global.common.ResponseMessage;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -65,17 +64,9 @@ public class ExamResponseDto extends ResponseDto{
     private List<ChatResponseDto.Choice> choices;
 
     public static class Choice {
-        private ChatResponseDto.Message message;
         @JsonProperty("finish_reason")
         private String finish_reason;
-        private int index;
     }
-
-    public static class Message {
-        private String role;
-        private String content;
-    }
-
 
     public static ResponseEntity<ExamResponseDto> success(String quiz1, String quiz2, String quiz3, String quiz4, String quiz5) {
         ExamResponseDto responseBody = new ExamResponseDto();
