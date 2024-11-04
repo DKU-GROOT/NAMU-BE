@@ -54,7 +54,7 @@ public class ShopServiceImplement implements ShopService{
             String email = dto.getEmail();
             String itemName = dto.getItemName();
 
-            ItemEntity itemEntity = itemRepository.findByName(itemName);
+            ItemEntity itemEntity = itemRepository.findByItemName(itemName);
             if (itemEntity == null) {
                 return ResponseDto.databaseError();
             }
@@ -86,7 +86,7 @@ public class ShopServiceImplement implements ShopService{
             userItemEntity.setEquip(true);
             userItemRepository.save(userItemEntity);
 
-            ItemEntity itemEntity = itemRepository.findByName(itemName);
+            ItemEntity itemEntity = itemRepository.findByItemName(itemName);
             if (itemEntity == null) {
                 return ResponseDto.databaseError();
             }
@@ -129,7 +129,7 @@ public class ShopServiceImplement implements ShopService{
             userItemEntity.setEquip(false);
             userItemRepository.save(userItemEntity);
 
-            ItemEntity itemEntity = itemRepository.findByName(itemName);
+            ItemEntity itemEntity = itemRepository.findByItemName(itemName);
             if (itemEntity == null) {
                 return ResponseDto.databaseError();
             }
