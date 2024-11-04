@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.groot.namu.shop.entity.ItemEntity;
 
-public interface ItemRepository extends JpaRepository<ItemEntity, Integer>{
-    boolean ExistsByName(String itemName);
-    ItemEntity findByName(String itemName);
+public interface ItemRepository extends JpaRepository<ItemEntity, String>{
+    boolean ExistsByItemName(String itemName);
+    ItemEntity findByItemName(String itemName);
 }
