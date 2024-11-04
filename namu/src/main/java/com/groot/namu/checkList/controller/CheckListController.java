@@ -3,8 +3,8 @@ package com.groot.namu.checkList.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.groot.namu.checkList.dto.request.AddCheckListRequestDto;
-import com.groot.namu.checkList.dto.response.AddCheckListResponseDto;
+import com.groot.namu.checkList.dto.request.*;
+import com.groot.namu.checkList.dto.response.*;
 import com.groot.namu.checkList.service.CheckListService;
 
 import jakarta.validation.Valid;
@@ -30,5 +30,15 @@ public class CheckListController {
 
         return response;
     }
+
+    @PostMapping("/complete")
+    public ResponseEntity<? super CompleteCheckListResponseDto> postMethodName(
+        @RequestBody @Valid CompleteCheckListRequestDto responseBody
+    ) {
+        ResponseEntity<? super CompleteCheckListResponseDto> response = checkListService.completeCheckList(responseBody);
+        
+        return response;
+    }
+    
     
 }
