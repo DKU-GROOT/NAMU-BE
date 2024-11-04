@@ -64,6 +64,10 @@ public class ShopServiceImplement implements ShopService{
             userItemEntity.setItemName(itemName);
             userItemEntity.setEquip(false);
             userItemRepository.save(userItemEntity);
+
+            UserEntity userEntity = userRepository.findByEmail(email);
+            userEntity.setPoint(userEntity.getPoint() - itemEntity.getPrice());
+            userRepository.save(userEntity);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseDto.databaseError();
@@ -162,8 +166,6 @@ public class ShopServiceImplement implements ShopService{
 
         try{
             String email = dto.getEmail();
-            boolean isExistId = userRepository.existsByEmail(email);
-            if (isExistId) return WaterTreeResponseDto.databaseError();
 
             UserEntity userEntity = userRepository.findByEmail(email);
             TreeEntity treeEntity = treeRepository.findByEmail(email);
@@ -173,7 +175,7 @@ public class ShopServiceImplement implements ShopService{
             }
 
             int userPoint = userEntity.getPoint();
-            int point = dto.getPoint();
+            int point = treeEntity.getTreePoint();
             if (userPoint >= point) {
                 userEntity.setPoint(userPoint - point);
                 userRepository.save(userEntity);
@@ -181,6 +183,9 @@ public class ShopServiceImplement implements ShopService{
                 treeEntity.setTreeLevel(treeEntity.getTreeLevel() + 1);
                 treeEntity.setTreePoint(treeEntity.getTreePoint() + 10);
                 treeRepository.save(treeEntity);
+            }
+            else{
+                return ResponseDto.databaseError();
             }
         } catch (Exception e) {
             e.printStackTrace();
