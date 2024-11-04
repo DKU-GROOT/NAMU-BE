@@ -32,13 +32,23 @@ public class CheckListController {
     }
 
     @PostMapping("/complete")
-    public ResponseEntity<? super CompleteCheckListResponseDto> postMethodName(
+    public ResponseEntity<? super CompleteCheckListResponseDto> completeCheckList(
         @RequestBody @Valid CompleteCheckListRequestDto responseBody
     ) {
         ResponseEntity<? super CompleteCheckListResponseDto> response = checkListService.completeCheckList(responseBody);
         
         return response;
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<? super DeleteCheckListResponseDto> deleteCheckList(
+        @RequestBody @Valid DeleteCheckListRequestDto requestBody
+    ) {
+        ResponseEntity<? super DeleteCheckListResponseDto> response = checkListService.deleteCheckList(requestBody);
+        
+        return response;
+    }
+    
     
     
 }
