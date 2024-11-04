@@ -13,6 +13,4 @@ public class WaterTreeRequestDto {
     @NotBlank
     @Email
     private String email;
-    @NotBlank
-    private int point;
 }
