@@ -1,5 +1,6 @@
 package com.groot.namu.checkList.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,10 +22,26 @@ public class CheckListEntity {
     private long checkListId;
     private String date;
     @Email
+    @Column
     private String email;
+    @Column
     private String checkList1;
+    @Column(name = "check_list1_complete")
+    private boolean checkList1Complete;
+    @Column
     private String checkList2;
+    @Column(name = "check_list2_complete")
+    private boolean checkList2Complete;
+    @Column
     private String checkList3;
+    @Column(name = "check_list3_complete")
+    private boolean checkList3Complete;
+    @Column
     private String checkList4;
+    @Column(name = "check_list4_complete")
+    private boolean checkList4Complete;
+    @Column
     private String checkList5;
+    @Column(name = "check_list5_complete")
+    private boolean checkList5Complete;
 }
