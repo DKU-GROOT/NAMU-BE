@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .requestMatchers("/" , "/namu/v2/auth/**").permitAll()
                 .requestMatchers("/namu/v2/tree/**").permitAll()
                 .requestMatchers("/namu/v2/shop/**").permitAll()
+                .requestMatchers("/namu/v2/check-list/**").permitAll()
                 // .requestMatchers("/namu/v2/user/**").hasRole("USER")
                 // .requestMatchers("/namu/v2/admin/**").hasRole("ADMIN")
                 .requestMatchers("/namu/v2/study/**").permitAll()
