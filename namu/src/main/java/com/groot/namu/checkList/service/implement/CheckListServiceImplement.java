@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 
 import com.groot.namu.checkList.dto.request.AddCheckListRequestDto;
 import com.groot.namu.checkList.dto.request.CompleteCheckListRequestDto;
+import com.groot.namu.checkList.dto.request.DeleteCheckListRequestDto;
 import com.groot.namu.checkList.dto.response.AddCheckListResponseDto;
 import com.groot.namu.checkList.dto.response.CompleteCheckListResponseDto;
+import com.groot.namu.checkList.dto.response.DeleteCheckListResponseDto;
 import com.groot.namu.checkList.entity.CheckListEntity;
 import com.groot.namu.checkList.repository.CheckListRepository;
 import com.groot.namu.checkList.service.CheckListService;
@@ -99,6 +101,62 @@ public class CheckListServiceImplement implements CheckListService{
             return ResponseDto.databaseError();
         }
         return CompleteCheckListResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super DeleteCheckListResponseDto> deleteCheckList(DeleteCheckListRequestDto dto) {
+        try {
+            String email = dto.getEmail();
+            String date = dto.getDate();
+            int num = dto.getNum();
+
+            CheckListEntity checkListEntity = checkListRepository.findByEmailAndDate(email, date);
+            if (checkListEntity == null){
+                return ResponseDto.databaseError();
+            } else if (num == 1){
+                checkListEntity.setCheckList1(checkListEntity.getCheckList2());
+                checkListEntity.setCheckList1Complete(checkListEntity.isCheckList2Complete());
+                checkListEntity.setCheckList2(checkListEntity.getCheckList3());
+                checkListEntity.setCheckList2Complete(checkListEntity.isCheckList3Complete());
+                checkListEntity.setCheckList3(checkListEntity.getCheckList4());
+                checkListEntity.setCheckList3Complete(checkListEntity.isCheckList4Complete());
+                checkListEntity.setCheckList4(checkListEntity.getCheckList5());
+                checkListEntity.setCheckList4Complete(checkListEntity.isCheckList5Complete());
+                checkListEntity.setCheckList5(null);
+                checkListEntity.setCheckList5Complete(false);
+            } else if (num == 2){
+                checkListEntity.setCheckList2(checkListEntity.getCheckList3());
+                checkListEntity.setCheckList2Complete(checkListEntity.isCheckList3Complete());
+                checkListEntity.setCheckList3(checkListEntity.getCheckList4());
+                checkListEntity.setCheckList3Complete(checkListEntity.isCheckList4Complete());
+                checkListEntity.setCheckList4(checkListEntity.getCheckList5());
+                checkListEntity.setCheckList4Complete(checkListEntity.isCheckList5Complete());
+                checkListEntity.setCheckList5(null);
+                checkListEntity.setCheckList5Complete(false);
+            } else if (num == 3){
+                checkListEntity.setCheckList3(checkListEntity.getCheckList4());
+                checkListEntity.setCheckList3Complete(checkListEntity.isCheckList4Complete());
+                checkListEntity.setCheckList4(checkListEntity.getCheckList5());
+                checkListEntity.setCheckList4Complete(checkListEntity.isCheckList5Complete());
+                checkListEntity.setCheckList5(null);
+                checkListEntity.setCheckList5Complete(false);
+            } else if (num == 4){
+                checkListEntity.setCheckList4(checkListEntity.getCheckList5());
+                checkListEntity.setCheckList4Complete(checkListEntity.isCheckList5Complete());
+                checkListEntity.setCheckList5(null);
+                checkListEntity.setCheckList5Complete(false);
+            } else if (num == 5){
+                checkListEntity.setCheckList5(null);
+                checkListEntity.setCheckList5Complete(false);
+            }
+
+            checkListRepository.save(checkListEntity);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return DeleteCheckListResponseDto.success();
     }
     
 }
