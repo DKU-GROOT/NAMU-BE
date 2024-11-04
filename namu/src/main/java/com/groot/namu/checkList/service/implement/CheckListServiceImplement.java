@@ -25,7 +25,7 @@ public class CheckListServiceImplement implements CheckListService{
             String date = dto.getDate();
             String checkList = dto.getCheckList();
 
-            CheckListEntity checkListEntity = checkListRepository.findByEmailandDate(email, date);
+            CheckListEntity checkListEntity = checkListRepository.findByEmailAndDate(email, date);
 
             if (checkListEntity == null){
                 CheckListEntity newCheckListEntity = new CheckListEntity();
