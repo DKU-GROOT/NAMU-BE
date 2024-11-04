@@ -4,7 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="721dd5ed-b173-4df9-aa5a-fac48f2bc152" name="Changes" comment="" />
+=======
+    <list default="true" id="721dd5ed-b173-4df9-aa5a-fac48f2bc152" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/namu/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/common/ResponseCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/common/ResponseCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/common/ResponseMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/common/ResponseMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/controller/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/controller/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/dto/response/ExamResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/dto/response/ExamResponseDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/entity/ExamEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/entity/ExamEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/repository/ExamRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/repository/ExamRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/service/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/service/ChatService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/service/implement/ChatServiceImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/namu/src/main/java/com/groot/namu/study/service/implement/ChatServiceImplement.java" afterDir="false" />
+    </list>
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,12 +34,36 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$/namu">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="namu" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="namu" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="namu" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="namu" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="namu" type="f1a62948:ProjectNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
               </path>
             </expand>
             <select />
@@ -35,8 +75,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -66,7 +106,12 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Gradle.Build namu.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.namu [buildDependents].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.namu [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.namu [clean].executor&quot;: &quot;Run&quot;,
     &quot;Gradle.namu [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.namu.executor&quot;: &quot;Run&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
@@ -94,6 +139,9 @@
     ]
   }
 }</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.groot.namu.study.dto.response" />
@@ -101,6 +149,72 @@
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.NamuApplication">
+    <configuration name="namu [buildDependents]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/namu" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="buildDependents" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="namu [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/namu" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="namu [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/namu" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="namu [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -123,6 +237,26 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="namu" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/namu" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="NamuApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="com.groot.namu.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.groot.namu.NamuApplication" />
@@ -133,6 +267,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.namu [dependencies]" />
+        <item itemvalue="Gradle.namu [buildDependents]" />
+        <item itemvalue="Gradle.namu [build]" />
+        <item itemvalue="Gradle.namu [clean]" />
+        <item itemvalue="Gradle.namu" />
       </list>
     </recent_temporary>
   </component>
@@ -159,7 +297,10 @@
       <workItem from="1729753108965" duration="2029000" />
       <workItem from="1729857880183" duration="10370000" />
       <workItem from="1729913750072" duration="30697000" />
-      <workItem from="1730185341322" duration="146000" />
+      <workItem from="1730185341322" duration="1778000" />
+      <workItem from="1730354756433" duration="81000" />
+      <workItem from="1730442776540" duration="16980000" />
+      <workItem from="1730721200982" duration="72000" />
     </task>
     <servers />
   </component>
