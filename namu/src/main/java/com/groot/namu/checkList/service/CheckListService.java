@@ -9,4 +9,5 @@ public interface CheckListService {
     ResponseEntity<? super AddCheckListResponseDto> addCheckList(AddCheckListRequestDto dto);
     ResponseEntity<? super CompleteCheckListResponseDto> completeCheckList(CompleteCheckListRequestDto dto);
     ResponseEntity<? super DeleteCheckListResponseDto> deleteCheckList(DeleteCheckListRequestDto dto);
+    ResponseEntity<? super CheckCheckListResponseDto> checkCheckList(CheckCheckListRequestDto dto);
 }
