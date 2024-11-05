@@ -2,8 +2,8 @@ package com.groot.namu.study.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groot.namu.global.common.ResponseCode;
-import com.groot.namu.global.common.ResponseMessage;
+import com.groot.namu.study.common.StudyResponseCode;
+import com.groot.namu.study.common.StudyResponseMessage;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -79,7 +79,7 @@ public class ExamResponseDto extends ResponseDto{
     }
 
     public static ResponseEntity<ResponseDto> examFail() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.EXAM_FAIL, ResponseMessage.EXAM_FAIL);
+        ResponseDto responseBody = new ResponseDto(StudyResponseCode.EXAM_FAIL, StudyResponseMessage.EXAM_FAIL);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     }
 }
