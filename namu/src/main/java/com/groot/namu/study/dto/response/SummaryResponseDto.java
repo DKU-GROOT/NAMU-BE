@@ -2,8 +2,8 @@ package com.groot.namu.study.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.groot.namu.global.common.ResponseCode;
-import com.groot.namu.global.common.ResponseMessage;
+import com.groot.namu.study.common.StudyResponseCode;
+import com.groot.namu.study.common.StudyResponseMessage;
 import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,7 +51,7 @@ public class SummaryResponseDto extends ResponseDto{
     }
 
     public static ResponseEntity<ResponseDto> summaryFail() {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.SUMMARY_FAIL, ResponseMessage.SUMMARY_FAIL);
+        ResponseDto responseBody = new ResponseDto(StudyResponseCode.SUMMARY_FAIL, StudyResponseMessage.SUMMARY_FAIL);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     }
 }
