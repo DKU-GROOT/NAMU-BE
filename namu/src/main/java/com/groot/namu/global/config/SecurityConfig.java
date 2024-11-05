@@ -33,15 +33,15 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // CSRF 비활성화
-                .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // 모든 요청 허용
-                );
-        return http.build();
-    }
+    // @Bean
+    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    //     http
+    //             .csrf(csrf -> csrf.disable()) // CSRF 비활성화
+    //             .authorizeHttpRequests(auth -> auth
+    //                     .anyRequest().permitAll() // 모든 요청 허용
+    //             );
+    //     return http.build();
+    // }
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
