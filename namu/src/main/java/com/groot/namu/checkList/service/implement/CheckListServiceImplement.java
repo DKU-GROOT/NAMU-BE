@@ -4,9 +4,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.groot.namu.checkList.dto.request.AddCheckListRequestDto;
+import com.groot.namu.checkList.dto.request.CheckCheckListRequestDto;
 import com.groot.namu.checkList.dto.request.CompleteCheckListRequestDto;
 import com.groot.namu.checkList.dto.request.DeleteCheckListRequestDto;
 import com.groot.namu.checkList.dto.response.AddCheckListResponseDto;
+import com.groot.namu.checkList.dto.response.CheckCheckListResponseDto;
 import com.groot.namu.checkList.dto.response.CompleteCheckListResponseDto;
 import com.groot.namu.checkList.dto.response.DeleteCheckListResponseDto;
 import com.groot.namu.checkList.entity.CheckListEntity;
@@ -157,6 +159,18 @@ public class CheckListServiceImplement implements CheckListService{
             return ResponseDto.databaseError();
         }
         return DeleteCheckListResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super CheckCheckListResponseDto> checkCheckList(CheckCheckListRequestDto dto) {
+        String email = dto.getEmail();
+        String date = dto.getDate();
+
+        CheckListEntity checkListEntity = checkListRepository.findByEmailAndDate(email, date);
+        if (checkListEntity == null) {
+            return ResponseDto.databaseError();   
+        }
+        return CheckCheckListResponseDto.success(checkListEntity);
     }
     
 }
