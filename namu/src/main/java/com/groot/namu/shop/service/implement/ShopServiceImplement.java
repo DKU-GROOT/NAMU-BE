@@ -171,7 +171,7 @@ public class ShopServiceImplement implements ShopService{
             TreeEntity treeEntity = treeRepository.findByEmail(email);
 
             if(userEntity == null || treeEntity == null){
-                return WaterTreeResponseDto.entityNotFound();
+                return ResponseDto.databaseError();
             }
 
             int userPoint = userEntity.getPoint();
