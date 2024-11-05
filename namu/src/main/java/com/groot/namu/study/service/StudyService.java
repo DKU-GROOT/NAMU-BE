@@ -8,7 +8,7 @@ import com.groot.namu.study.dto.response.ExamResponseDto;
 import com.groot.namu.study.dto.response.SummaryResponseDto;
 import org.springframework.http.ResponseEntity;
 
-public interface ChatService {
+public interface StudyService {
     ResponseEntity<? super ChatResponseDto> chat(ChatRequestDto dto);
 
     ResponseEntity<? super SummaryResponseDto> summary(SummaryRequestDto dto);
