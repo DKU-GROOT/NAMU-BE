@@ -3,8 +3,8 @@ package com.groot.namu.user.dto.response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.groot.namu.global.common.ResponseCode;
-import com.groot.namu.global.common.ResponseMessage;
+import com.groot.namu.user.common.UserResponseCode;
+import com.groot.namu.user.common.UserResponseMessage;
 import com.groot.namu.global.dto.ResponseDto;
 import com.groot.namu.user.entity.UserEntity;
 
@@ -35,7 +35,7 @@ public class SignInResponseDto extends ResponseDto{
     }
 
     public static ResponseEntity<ResponseDto> signInFail () {
-        ResponseDto responseBody = new ResponseDto(ResponseCode.SIGN_IN_FAIL, ResponseMessage.SIGN_IN_FAIL);
+        ResponseDto responseBody = new ResponseDto(UserResponseCode.SIGN_IN_FAIL, UserResponseMessage.SIGN_IN_FAIL);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     }
     
