@@ -12,7 +12,7 @@ import com.groot.namu.study.entity.UserQuestionEntity;
 import com.groot.namu.study.repository.ExamRepository;
 import com.groot.namu.study.repository.SummaryRepository;
 import com.groot.namu.study.repository.UserQuestionRepository;
-import com.groot.namu.study.service.ChatService;
+import com.groot.namu.study.service.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +25,9 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class ChatServiceImplement implements ChatService {
+public class StudyServiceImplement implements StudyService {
 
-    private static final Logger logger = LoggerFactory.getLogger(ChatServiceImplement.class);
+    private static final Logger logger = LoggerFactory.getLogger(StudyServiceImplement.class);
     private final SummaryRepository summaryRepository;
     private final UserQuestionRepository userQuestionRepository;
     private final ExamRepository examRepository;
