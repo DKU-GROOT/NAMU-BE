@@ -21,9 +21,9 @@ public class TreeController {
 
     @GetMapping("/{email}")
     public ResponseEntity<TreeResponseDto> getTreeById(@PathVariable String email) {
-        TreeResponseDto treeDto = treeService.getTreeByEmail(email);
-        if (treeDto != null) {
-            return ResponseEntity.ok(treeDto);
+        TreeResponseDto responseBody = treeService.getTreeByEmail(email);
+        if (responseBody != null) {
+            return ResponseEntity.ok(responseBody);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
