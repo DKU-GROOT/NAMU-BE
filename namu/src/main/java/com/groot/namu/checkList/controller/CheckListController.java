@@ -48,6 +48,16 @@ public class CheckListController {
         
         return response;
     }
+
+    @PostMapping("/check")
+    public ResponseEntity<? super CheckCheckListResponseDto> checkCheckList (
+        @RequestBody @Valid CheckCheckListRequestDto requestBody
+    ) {
+        ResponseEntity<? super CheckCheckListResponseDto> response = checkListService.checkCheckList(requestBody);
+        
+        return response;
+    }
+    
     
     
     
