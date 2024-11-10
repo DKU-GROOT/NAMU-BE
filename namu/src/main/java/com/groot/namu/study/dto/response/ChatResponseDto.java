@@ -2,6 +2,7 @@ package com.groot.namu.study.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.groot.namu.global.dto.ResponseDto;
 import com.groot.namu.study.common.StudyResponseCode;
 import com.groot.namu.study.common.StudyResponseMessage;
 import lombok.Getter;
