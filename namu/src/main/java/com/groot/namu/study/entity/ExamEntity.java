@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class ExamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long exam_id;
+    private int examId;
 
     private String email;
 
@@ -39,5 +40,20 @@ public class ExamEntity {
     private String quiz5;
     @Column(columnDefinition = "LONGTEXT")
     private String solution5;
+
+    @Setter
+    @Column(name = "score")
+    private int score;
+
+    @Column(name = "result")
+    private String result;
+
+    public void setResult(String[] result){
+        StringBuilder resultText= new StringBuilder();
+        for (String s : result) {
+            resultText.append(s);
+        }
+        this.result= resultText.toString();
+    }
 }
 

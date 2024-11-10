@@ -1,17 +1,12 @@
 package com.groot.namu.study.service.implement;
 
-import com.groot.namu.study.dto.request.ChatRequestDto;
-import com.groot.namu.study.dto.request.ExamRequestDto;
-import com.groot.namu.study.dto.request.SummaryRequestDto;
-import com.groot.namu.study.dto.response.ChatResponseDto;
-import com.groot.namu.study.dto.response.ExamResponseDto;
-import com.groot.namu.study.dto.response.SummaryResponseDto;
-import com.groot.namu.study.entity.ExamEntity;
-import com.groot.namu.study.entity.SummaryEntity;
-import com.groot.namu.study.entity.UserQuestionEntity;
+import com.groot.namu.study.dto.request.*;
+import com.groot.namu.study.dto.response.*;
+import com.groot.namu.study.entity.*;
 import com.groot.namu.study.repository.ExamRepository;
 import com.groot.namu.study.repository.SummaryRepository;
 import com.groot.namu.study.repository.UserQuestionRepository;
+import com.groot.namu.study.repository.UserSubjectRepository;
 import com.groot.namu.study.service.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -29,12 +24,67 @@ public class StudyServiceImplement implements StudyService {
 
     private static final Logger logger = LoggerFactory.getLogger(StudyServiceImplement.class);
     private final SummaryRepository summaryRepository;
+    private final UserSubjectRepository userSubjectRepository;
     private final UserQuestionRepository userQuestionRepository;
     private final ExamRepository examRepository;
     private final WebClient.Builder webClientBuilder;
     @Value("${openai.api.key}")
     private String openAiApiKey;
 
+    @Override
+    public ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(ShowMyStudyRequestDto dto) {
+
+    }
+
+    @Override
+    public ResponseEntity<? super ScoringResponseDto> Scoring(ScoringRequestDto dto){
+        int examId = dto.getExamId();
+        int score = 0;
+        String[] result = new String[5];
+        ExamEntity user_exam = examRepository.findByExamId(examId);
+
+        if(user_exam.getSolution1().equals(dto.getUserAnswer1().trim())){
+            score += 20;
+            result[0] = "O";
+        }else {
+            result[0] = "X";
+        }
+
+        if(user_exam.getSolution2().equals(dto.getUserAnswer2().trim())){
+            score += 20;
+            result[1] = "O";
+        }else {
+            result[1] = "X";
+        }
+
+        if(user_exam.getSolution3().equals(dto.getUserAnswer3().trim())){
+            score += 20;
+            result[2] = "O";
+        }else {
+            result[2] = "X";
+        }
+
+        if(user_exam.getSolution4().equals(dto.getUserAnswer4().trim())){
+            score += 20;
+            result[3] = "O";
+        }else {
+            result[3] = "X";
+        }
+
+        if(user_exam.getSolution5().equals(dto.getUserAnswer5().trim())){
+            score += 20;
+            result[4] = "O";
+        }else {
+            result[4] = "X";
+        }
+
+        ExamEntity existingExam = examRepository.findByExamId(examId);
+        user_exam.setScore(score);
+        user_exam.setResult(result);
+        examRepository.save(user_exam);
+
+        return ScoringResponseDto.success(score, result);
+    }
 
     @Override
     public ResponseEntity<? super ExamResponseDto> exam(ExamRequestDto dto){
@@ -70,7 +120,7 @@ public class StudyServiceImplement implements StudyService {
                 +"====================\n"
                 +"문제5 답안 : 문제5의 답\n"
                 +"====================\n"
-                +"다만 각 문제와 각 문제의 답안 사이에 ==================== 이 문장을 추가해줘."));
+                +"그렇다고 예시대로 보내지 말고, 실제로는 내용을 추가해줘야해!! 다만 각 문제와 각 문제의 답안 사이에 ==================== 이 문장을 추가해줘."));
 
         WebClient webClient = webClientBuilder.baseUrl("https://api.openai.com").build();
 
@@ -98,12 +148,14 @@ public class StudyServiceImplement implements StudyService {
         String test = examResponse.getChoices().get(0).getMessage().getContent();
         Map<String, String> examQuestions = getContentAsMap(test);
 
-        ExamEntity examEntity = new ExamEntity(null,email, subjectName,
+        ExamEntity examEntity = new ExamEntity(0,email, subjectName,
                 examQuestions.get("quiz1"), examQuestions.get("solution1"),
                 examQuestions.get("quiz2"), examQuestions.get("solution2"),
                 examQuestions.get("quiz3"), examQuestions.get("solution3"),
                 examQuestions.get("quiz4"), examQuestions.get("solution4"),
-                examQuestions.get("quiz5"), examQuestions.get("solution5"));
+                examQuestions.get("quiz5"), examQuestions.get("solution5"),
+                0, null
+        );
         examRepository.save(examEntity);
 
         return ExamResponseDto.success(

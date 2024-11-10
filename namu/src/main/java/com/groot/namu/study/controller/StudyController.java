@@ -1,11 +1,7 @@
 package com.groot.namu.study.controller;
 
-import com.groot.namu.study.dto.request.ChatRequestDto;
-import com.groot.namu.study.dto.request.ExamRequestDto;
-import com.groot.namu.study.dto.request.SummaryRequestDto;
-import com.groot.namu.study.dto.response.ChatResponseDto;
-import com.groot.namu.study.dto.response.ExamResponseDto;
-import com.groot.namu.study.dto.response.SummaryResponseDto;
+import com.groot.namu.study.dto.request.*;
+import com.groot.namu.study.dto.response.*;
 import com.groot.namu.study.service.StudyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +39,21 @@ public class StudyController {
     ){
         ResponseEntity<? super ExamResponseDto> examResponse = studyService.exam(requestBody);
         return examResponse;
+    }
+
+    @PostMapping("/scoring")
+    public ResponseEntity<? super ScoringResponseDto> scoring(
+            @RequestBody @Valid ScoringRequestDto requestBody
+    ){
+        ResponseEntity<? super ScoringResponseDto> scoringResponse = studyService.Scoring(requestBody);
+        return scoringResponse;
+    }
+
+    @PostMapping("/myStudy")
+    public ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(
+            @RequestBody @Valid ShowMyStudyRequestDto requestBody
+    ){
+        ResponseEntity<? super ShowMyStudyResponseDto> showMyStudyResponse = studyService.showMyStudy(requestBody);
+        return showMyStudyResponse;
     }
 }

@@ -1,11 +1,7 @@
 package com.groot.namu.study.service;
 
-import com.groot.namu.study.dto.request.ChatRequestDto;
-import com.groot.namu.study.dto.request.ExamRequestDto;
-import com.groot.namu.study.dto.request.SummaryRequestDto;
-import com.groot.namu.study.dto.response.ChatResponseDto;
-import com.groot.namu.study.dto.response.ExamResponseDto;
-import com.groot.namu.study.dto.response.SummaryResponseDto;
+import com.groot.namu.study.dto.request.*;
+import com.groot.namu.study.dto.response.*;
 import org.springframework.http.ResponseEntity;
 
 public interface StudyService {
@@ -14,4 +10,8 @@ public interface StudyService {
     ResponseEntity<? super SummaryResponseDto> summary(SummaryRequestDto dto);
 
     ResponseEntity<? super ExamResponseDto> exam(ExamRequestDto dto);
+
+    ResponseEntity<? super ScoringResponseDto> Scoring(ScoringRequestDto dto);
+
+    ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(ShowMyStudyRequestDto dto);
 }
