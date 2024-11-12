@@ -106,7 +106,7 @@ public class UserServiceImplement implements UserService {
             String certificationNumber = dto.getCertificationNumber();
 
             CertificationEntity certificationEntity = certificationRepository.findByEmail(email);
-            if (certificationEntity == null) return CheckCertificationResponseDto.certificationFail();
+            if (certificationEntity == null) return CheckCertificationResponseDto.databaseError();
 
             boolean isMatched = certificationEntity.getEmail().equals(email) && certificationEntity.getCertificationNumber().equals(certificationNumber);
             if (!isMatched) return CheckCertificationResponseDto.certificationFail();
@@ -126,7 +126,7 @@ public class UserServiceImplement implements UserService {
 
             String nickname = dto.getNickname();
             boolean isExistId = userRepository.existsByNickname(nickname);
-            if (isExistId) return NicknameCheckResponseDto.duplicatedId();
+            if (isExistId) return NicknameCheckResponseDto.duplicatedNickname();
             
         } catch (Exception exception) {
             exception.printStackTrace();
