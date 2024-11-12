@@ -20,8 +20,8 @@ public class NicknameCheckResponseDto extends ResponseDto{
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
-    public static ResponseEntity<ResponseDto> duplicatedId() {
-        ResponseDto responseBody = new ResponseDto(UserResponseCode.DUPLICATE_ID, UserResponseMessage.DUPLICATE_ID);
+    public static ResponseEntity<ResponseDto> duplicatedNickname() {
+        ResponseDto responseBody = new ResponseDto(UserResponseCode.DUPLICATE_NICKNAME, UserResponseMessage.DUPLICATE_NICKNAME);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 }
