@@ -10,4 +10,5 @@ public interface UserResponseCode extends ResponseCode{
     String DUPLICATE_EMAIL = "DE";
     String DUPLICATE_ID = "DI";
     String SIGN_IN_FAIL = "SF";
+    String DUPLICATE_NICKNAME = "DN";
 }
