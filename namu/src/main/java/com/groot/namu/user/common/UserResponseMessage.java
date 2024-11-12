@@ -10,4 +10,5 @@ public interface UserResponseMessage extends ResponseMessage{
     String ENTITY_NOT_FOND = "entity not found";
     String SIGN_IN_FAIL = "login informaion mismatch";
     String CERTIFICATION_FAIL = "certification failed";
+    String DUPLICATE_NICKNAME = "duplicated nickname";
 }
