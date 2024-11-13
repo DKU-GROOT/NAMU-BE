@@ -162,7 +162,6 @@ public class UserServiceImplement implements UserService {
             TreeEntity treeEntity = new TreeEntity(email);
             treeRepository.save(treeEntity);
 
-            //certificationRepository.delete(certificationEntity);
             certificationRepository.deleteByEmail(email);
 
         } catch (Exception exception) {
@@ -184,12 +183,12 @@ public class UserServiceImplement implements UserService {
             
             email = dto.getEmail();
             userEntity = userRepository.findByEmail(email);
-            if ( userEntity == null ) return SignInResponseDto.signInFail();
+            if ( userEntity == null ) return SignInResponseDto.signInFailEmail();
 
             String password = dto.getPassword();
             String encodedPassword = userEntity.getPassword();
             boolean isMatched = passwordEncoder.matches(password, encodedPassword);
-            if (!isMatched) return SignInResponseDto.signInFail();
+            if (!isMatched) return SignInResponseDto.signInFailPassword();
 
             token = jwtProvider.create(email);
 
