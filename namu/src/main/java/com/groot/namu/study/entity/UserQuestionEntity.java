@@ -24,4 +24,5 @@ public class UserQuestionEntity {
 
     @Column(columnDefinition = "LONGTEXT")
     private String answer;
+
 }

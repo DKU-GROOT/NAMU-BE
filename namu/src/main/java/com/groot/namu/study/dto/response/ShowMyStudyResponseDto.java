@@ -1,5 +1,6 @@
 package com.groot.namu.study.dto.response;
 
+import com.groot.namu.global.dto.ResponseDto;
 import com.groot.namu.study.common.StudyResponseCode;
 import com.groot.namu.study.common.StudyResponseMessage;
 import com.groot.namu.study.entity.SubjectEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class ShowMyStudyResponseDto extends ResponseDto{
+public class ShowMyStudyResponseDto extends ResponseDto {
     private List<SubjectEntity> subjectList;
 
     public static ResponseEntity<ShowMyStudyResponseDto> success(List<SubjectEntity> subjectList) {

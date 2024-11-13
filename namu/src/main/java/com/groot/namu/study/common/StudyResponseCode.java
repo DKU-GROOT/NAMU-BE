@@ -8,5 +8,6 @@ public interface StudyResponseCode extends ResponseCode{
     String QUESTION_FAIL = "QF";
     String SCORING_FAIL = "SF";
     String LOAD_FAIL = "LF";
+    String CREATE_FAIL = "CF";
 }
 

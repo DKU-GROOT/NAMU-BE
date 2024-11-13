@@ -21,6 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ExamResponseDto extends ResponseDto{
 
+    private int examId;
+
     @Column(columnDefinition = "LONGTEXT")
     @JsonProperty("quiz1")
     private String quiz1;
@@ -69,8 +71,9 @@ public class ExamResponseDto extends ResponseDto{
         private String finish_reason;
     }
 
-    public static ResponseEntity<ExamResponseDto> success(String quiz1, String quiz2, String quiz3, String quiz4, String quiz5) {
+    public static ResponseEntity<ExamResponseDto> success(int examId, String quiz1, String quiz2, String quiz3, String quiz4, String quiz5) {
         ExamResponseDto responseBody = new ExamResponseDto();
+        responseBody.setExamId(examId);
         responseBody.setQuiz1(quiz1);
         responseBody.setQuiz2(quiz2);
         responseBody.setQuiz3(quiz3);

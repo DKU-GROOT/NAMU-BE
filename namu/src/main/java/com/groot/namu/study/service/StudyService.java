@@ -5,6 +5,8 @@ import com.groot.namu.study.dto.response.*;
 import org.springframework.http.ResponseEntity;
 
 public interface StudyService {
+//    ResponseEntity<? super CreateStudyResponseDto> createStudy(CreateStudyRequestDto dto);
+
     ResponseEntity<? super ChatResponseDto> chat(ChatRequestDto dto);
 
     ResponseEntity<? super SummaryResponseDto> summary(SummaryRequestDto dto);
@@ -13,5 +15,5 @@ public interface StudyService {
 
     ResponseEntity<? super ScoringResponseDto> Scoring(ScoringRequestDto dto);
 
-    ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(ShowMyStudyRequestDto dto);
+//    ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(ShowMyStudyRequestDto dto);
 }

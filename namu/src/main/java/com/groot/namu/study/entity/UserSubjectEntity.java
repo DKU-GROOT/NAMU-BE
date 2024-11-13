@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class UserSubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long userSubjectId;
 
     private String email;
 

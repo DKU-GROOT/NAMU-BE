@@ -49,11 +49,11 @@ public class StudyController {
         return scoringResponse;
     }
 
-    @PostMapping("/myStudy")
-    public ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(
-            @RequestBody @Valid ShowMyStudyRequestDto requestBody
-    ){
-        ResponseEntity<? super ShowMyStudyResponseDto> showMyStudyResponse = studyService.showMyStudy(requestBody);
-        return showMyStudyResponse;
-    }
+//    @PostMapping("/myStudy")
+//    public ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(
+//            @RequestBody @Valid ShowMyStudyRequestDto requestBody
+//    ){
+//        ResponseEntity<? super ShowMyStudyResponseDto> showMyStudyResponse = studyService.showMyStudy(requestBody);
+//        return showMyStudyResponse;
+//    }
 }

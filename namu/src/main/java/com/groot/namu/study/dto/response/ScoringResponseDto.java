@@ -1,5 +1,6 @@
 package com.groot.namu.study.dto.response;
 
+import com.groot.namu.global.dto.ResponseDto;
 import com.groot.namu.study.common.StudyResponseCode;
 import com.groot.namu.study.common.StudyResponseMessage;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ScoringResponseDto extends ResponseDto{
+public class ScoringResponseDto extends ResponseDto {
     private int score;
     private String[] result;
 

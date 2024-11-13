@@ -8,4 +8,5 @@ public interface StudyResponseMessage extends ResponseMessage{
     String QUESTION_FAIL = "question failed";
     String SCORING_FAIL = "scoring failed";
     String LOAD_FAIL = "load failed";
+    String CREATE_FAIL = "create failed";
 }

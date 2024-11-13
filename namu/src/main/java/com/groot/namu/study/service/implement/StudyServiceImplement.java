@@ -31,10 +31,10 @@ public class StudyServiceImplement implements StudyService {
     @Value("${openai.api.key}")
     private String openAiApiKey;
 
-    @Override
-    public ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(ShowMyStudyRequestDto dto) {
-
-    }
+//    @Override
+//    public ResponseEntity<? super ShowMyStudyResponseDto> showMyStudy(ShowMyStudyRequestDto dto) {
+//
+//    }
 
     @Override
     public ResponseEntity<? super ScoringResponseDto> Scoring(ScoringRequestDto dto){
@@ -43,35 +43,35 @@ public class StudyServiceImplement implements StudyService {
         String[] result = new String[5];
         ExamEntity user_exam = examRepository.findByExamId(examId);
 
-        if(user_exam.getSolution1().equals(dto.getUserAnswer1().trim())){
+        if(user_exam.getSolution1().trim().equals(dto.getUserAnswer1().trim())){
             score += 20;
             result[0] = "O";
         }else {
             result[0] = "X";
         }
 
-        if(user_exam.getSolution2().equals(dto.getUserAnswer2().trim())){
+        if(user_exam.getSolution2().trim().equals(dto.getUserAnswer2().trim())){
             score += 20;
             result[1] = "O";
         }else {
             result[1] = "X";
         }
 
-        if(user_exam.getSolution3().equals(dto.getUserAnswer3().trim())){
+        if(user_exam.getSolution3().trim().equals(dto.getUserAnswer3().trim())){
             score += 20;
             result[2] = "O";
         }else {
             result[2] = "X";
         }
 
-        if(user_exam.getSolution4().equals(dto.getUserAnswer4().trim())){
+        if(user_exam.getSolution4().trim().equals(dto.getUserAnswer4().trim())){
             score += 20;
             result[3] = "O";
         }else {
             result[3] = "X";
         }
 
-        if(user_exam.getSolution5().equals(dto.getUserAnswer5().trim())){
+        if(user_exam.getSolution5().trim().equals(dto.getUserAnswer5().trim())){
             score += 20;
             result[4] = "O";
         }else {
@@ -94,33 +94,35 @@ public class StudyServiceImplement implements StudyService {
         String summary = String.valueOf(summaryRepository.findByEmailAndSubjectName(email, subjectName));
 
         List<Map<String, String>> messages = new ArrayList<>();
-        messages.add(Map.of("role", "system", "content", "너는 ${subjectName} 과목의 시험을 출제하기 위한 교수야."));
+        messages.add(Map.of("role", "system", "content", "너는"+ subjectName+ "과목의" +summary+"\n 이 요약본 내용에 대한 시험을 출제해줘야해."));
 
         messages.add(Map.of("role", "user", "content", summary+
-                "\n\n 위 내용을 바탕으로 빈칸 뚫어놓기 유형의 시험 문제 5개를 출제해줘. "
-                +"문제 예시 : 문제2 답안 : ________은 작은 단위로 나눠 락을 걸어 동시에 실행되지만 오버헤드가 증가하고 관리가 복잡할 수 있다. ________은 전체 자원에 대해 하나의 락을 걸어 간단한 관리를 제공하지만 성능이 저하될 수 있다."
-                +"DB에 저장하기 위해 다음 양식을 지켜서 응답해주면 돼.\n"
-                +"문제 1 : 문제1 내용\n"
+                "\n\n"+subjectName+ "과목의 요약 내용을 바탕으로 빈칸 뚫어놓기 유형의 시험 문제 5개를 출제해줘. "
+                +"문제 예시 : 문제2 답안 : ________은 작은 단위로 나눠 락을 걸어 동시에 실행되지만 오버헤드가 증가하고 관리가 복잡할 수 있다."
+                +"예시일 뿐이고" + subjectName + "과목의 요약본인 " + summary + "를 읽어보고 관련된 문제를 출제해주면 되는거야."
+                +"DB에 저장하기 위해 아래 양식을 지켜서 응답해주면 돼.\n"
+                +"문제 1 : 내용\n"
                 +"====================\n"
-                +"문제1 답안 : 문제1의 답\n"
+                +"답\n"
                 +"====================\n"
-                +"문제2 : 문제2 내용\n"
+                +"문제2 : 내용\n"
                 +"====================\n"
-                +"문제2 답안 : 문제2의 답\n"
+                +"답\n"
                 +"====================\n"
-                +"문제3 : 문제3 내용\n"
+                +"문제3 : 내용\n"
                 +"====================\n"
-                +"문제3 답안 : 문제3의 답\n"
+                +"답\n"
                 +"====================\n"
-                +"문제4 : 문제4 내용\n"
+                +"문제4 : 내용\n"
                 +"====================\n"
-                +"문제4 답안 : 문제4의 답\n"
+                +"답\n"
                 +"====================\n"
-                +"문제5 : 문제5 내용\n"
+                +"문제5 :내용\n"
                 +"====================\n"
-                +"문제5 답안 : 문제5의 답\n"
+                +"답\n"
                 +"====================\n"
-                +"그렇다고 예시대로 보내지 말고, 실제로는 내용을 추가해줘야해!! 다만 각 문제와 각 문제의 답안 사이에 ==================== 이 문장을 추가해줘."));
+                +"그렇다고 예시대로 보내지 말고, 실제로는 내용을 추가해줘야해!!꼭 빈칸채우기라는 점을 명심해줘"
+                +"다만 각 문제와 각 문제의 답안 사이에 ==================== 이 문장을 추가해줘."));
 
         WebClient webClient = webClientBuilder.baseUrl("https://api.openai.com").build();
 
@@ -131,7 +133,7 @@ public class StudyServiceImplement implements StudyService {
                     .header("Authorization", "Bearer " + openAiApiKey)
                     .header("Content-Type", "application/json")
                     .bodyValue(Map.of(
-                            "model", "gpt-3.5-turbo",
+                            "model", "gpt-4o",
                             "messages", messages,
                             "max_tokens", 1000
                     ))
@@ -159,6 +161,7 @@ public class StudyServiceImplement implements StudyService {
         examRepository.save(examEntity);
 
         return ExamResponseDto.success(
+                examEntity.getExamId(),
                 examEntity.getQuiz1(),
                 examEntity.getQuiz2(),
                 examEntity.getQuiz3(),
@@ -213,7 +216,7 @@ public class StudyServiceImplement implements StudyService {
                     .header("Authorization", "Bearer " + openAiApiKey)
                     .header("Content-Type", "application/json")
                     .bodyValue(Map.of(
-                            "model", "gpt-3.5-turbo",
+                            "model", "gpt-4o",
                             "messages", messages,
                             "max_tokens", 1000
                     ))
@@ -250,6 +253,7 @@ public class StudyServiceImplement implements StudyService {
 
     @Override
     public ResponseEntity<? super ChatResponseDto> chat(ChatRequestDto dto) {
+
         String email = dto.getEmail();
         String subjectName = dto.getSubjectName();
         System.out.println(email+" "+subjectName);
@@ -276,7 +280,7 @@ public class StudyServiceImplement implements StudyService {
                     .header("Authorization", "Bearer " + openAiApiKey)
                     .header("Content-Type", "application/json")
                     .bodyValue(Map.of(
-                            "model", "gpt-3.5-turbo",
+                            "model", "gpt-4o",
                             "messages", messages,
                             "max_tokens", 1000
                     ))
@@ -301,4 +305,22 @@ public class StudyServiceImplement implements StudyService {
 
         return ChatResponseDto.success(answer);
     }
+
+//    public ResponseEntity<? super >
+//
+//    @Override
+//    public ResponseEntity<? super CreateStudyResponseDto> createStudy(CreateStudyRequestDto dto) {
+//        String email = dto.getEmail();
+//        String subjectName = dto.getSubjectName();
+//
+//        UserSubjectEntity userSubjectEntity = UserSubjectRepository.findByEmailAndSubjectName(email, subjectName);
+//        if(userSubjectEntity!=null){
+//            return CreateStudyResponseDto.createFail();
+//        } else{
+//            userSubjectEntity = new UserSubjectEntity(null, email, subjectName);
+//            userSubjectRepository.save(userSubjectEntity);
+//        }
+//
+//        return CreateStudyResponseDto.success();
+//    }
 }

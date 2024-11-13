@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserSubjectRepository extends JpaRepository<UserSubjectEntity, Long> {
 
+//    static UserSubjectEntity findByEmailAndSubjectName(String email, String subjectName) {
+//    }
 }
