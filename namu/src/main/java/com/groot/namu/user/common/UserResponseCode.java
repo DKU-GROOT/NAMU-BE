@@ -9,6 +9,7 @@ public interface UserResponseCode extends ResponseCode{
     String CERTIFICATION_FAIL = "CF";
     String DUPLICATE_EMAIL = "DE";
     String DUPLICATE_ID = "DI";
-    String SIGN_IN_FAIL = "SF";
     String DUPLICATE_NICKNAME = "DN";
+    String EMAIL_MISSMATCH = "EM";
+    String PASSWORD_MISSMATCH = "PM";
 }
