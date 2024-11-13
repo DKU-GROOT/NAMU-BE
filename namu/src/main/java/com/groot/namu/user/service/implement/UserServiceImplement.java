@@ -106,7 +106,7 @@ public class UserServiceImplement implements UserService {
             String certificationNumber = dto.getCertificationNumber();
 
             CertificationEntity certificationEntity = certificationRepository.findByEmail(email);
-            if (certificationEntity == null) return CheckCertificationResponseDto.certificationFail();
+            if (certificationEntity == null) return CheckCertificationResponseDto.databaseError();
 
             boolean isMatched = certificationEntity.getEmail().equals(email) && certificationEntity.getCertificationNumber().equals(certificationNumber);
             if (!isMatched) return CheckCertificationResponseDto.certificationFail();
@@ -126,7 +126,7 @@ public class UserServiceImplement implements UserService {
 
             String nickname = dto.getNickname();
             boolean isExistId = userRepository.existsByNickname(nickname);
-            if (isExistId) return NicknameCheckResponseDto.duplicatedId();
+            if (isExistId) return NicknameCheckResponseDto.duplicatedNickname();
             
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -162,7 +162,6 @@ public class UserServiceImplement implements UserService {
             TreeEntity treeEntity = new TreeEntity(email);
             treeRepository.save(treeEntity);
 
-            //certificationRepository.delete(certificationEntity);
             certificationRepository.deleteByEmail(email);
 
         } catch (Exception exception) {
@@ -184,12 +183,12 @@ public class UserServiceImplement implements UserService {
             
             email = dto.getEmail();
             userEntity = userRepository.findByEmail(email);
-            if ( userEntity == null ) return SignInResponseDto.signInFail();
+            if ( userEntity == null ) return SignInResponseDto.signInFailEmail();
 
             String password = dto.getPassword();
             String encodedPassword = userEntity.getPassword();
             boolean isMatched = passwordEncoder.matches(password, encodedPassword);
-            if (!isMatched) return SignInResponseDto.signInFail();
+            if (!isMatched) return SignInResponseDto.signInFailPassword();
 
             token = jwtProvider.create(email);
 

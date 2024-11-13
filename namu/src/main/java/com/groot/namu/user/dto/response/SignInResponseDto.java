@@ -34,8 +34,13 @@ public class SignInResponseDto extends ResponseDto{
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
-    public static ResponseEntity<ResponseDto> signInFail () {
-        ResponseDto responseBody = new ResponseDto(UserResponseCode.SIGN_IN_FAIL, UserResponseMessage.SIGN_IN_FAIL);
+    public static ResponseEntity<ResponseDto> signInFailEmail () {
+        ResponseDto responseBody = new ResponseDto(UserResponseCode.EMAIL_MISSMATCH, UserResponseMessage.EMAIL_MISSMATCH);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
+    }
+
+    public static ResponseEntity<ResponseDto> signInFailPassword () {
+        ResponseDto responseBody = new ResponseDto(UserResponseCode.PASSWORD_MISSMATCH, UserResponseMessage.PASSWORD_MISSMATCH);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     }
     
