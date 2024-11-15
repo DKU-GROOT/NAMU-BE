@@ -24,7 +24,7 @@ public class DiscussionComtroller {
     public ResponseEntity<? super PostDiscussionResponseDto> post(
         @RequestBody @Valid AddItemListRequestDto requestBody
     ) {
-        ResponseEntity<? super PostDiscussionResponseDto> response = discussionService.(requestBody);    
+        ResponseEntity<? super PostDiscussionResponseDto> response = discussionService.postDiscussion(requestBody);    
         return response;
     }
 }
