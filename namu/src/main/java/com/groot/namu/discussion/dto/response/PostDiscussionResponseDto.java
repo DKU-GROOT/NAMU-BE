@@ -10,7 +10,7 @@ public class PostDiscussionResponseDto extends ResponseDto{
         super();
     }
 
-    public ResponseEntity<PostDiscussionResponseDto> success() {
+    public static ResponseEntity<PostDiscussionResponseDto> success() {
         PostDiscussionResponseDto responseBody = new PostDiscussionResponseDto();
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
