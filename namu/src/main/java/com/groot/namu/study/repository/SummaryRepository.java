@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface SummaryRepository extends JpaRepository<SummaryEntity, Long> {
-    Optional<SummaryEntity> findByEmailAndSubjectName(String email, String subjectName);
+    SummaryEntity findByEmailAndSubjectName(String email, String subjectName);
 }

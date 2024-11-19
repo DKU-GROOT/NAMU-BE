@@ -91,38 +91,39 @@ public class StudyServiceImplement implements StudyService {
         String email = dto.getEmail();
         String subjectName = dto.getSubjectName();
 
-        String summary = String.valueOf(summaryRepository.findByEmailAndSubjectName(email, subjectName));
+        SummaryEntity mySummary = summaryRepository.findByEmailAndSubjectName(email, subjectName);
 
         List<Map<String, String>> messages = new ArrayList<>();
-        messages.add(Map.of("role", "system", "content", "너는"+ subjectName+ "과목의" +summary+"\n 이 요약본 내용에 대한 시험을 출제해줘야해."));
+        messages.add(Map.of("role", "system", "content", "너는"+ subjectName+ "과목의" +mySummary.getSummary()+"\n 이 요약본 내용에 대한 시험을 출제해줘야해."));
 
-        messages.add(Map.of("role", "user", "content", summary+
+        messages.add(Map.of("role", "user", "content", mySummary.getSummary()+
                 "\n\n"+subjectName+ "과목의 요약 내용을 바탕으로 빈칸 뚫어놓기 유형의 시험 문제 5개를 출제해줘. "
                 +"문제 예시 : 문제2 답안 : ________은 작은 단위로 나눠 락을 걸어 동시에 실행되지만 오버헤드가 증가하고 관리가 복잡할 수 있다."
-                +"예시일 뿐이고" + subjectName + "과목의 요약본인 " + summary + "를 읽어보고 관련된 문제를 출제해주면 되는거야."
-                +"DB에 저장하기 위해 아래 양식을 지켜서 응답해주면 돼.\n"
+                +"예시일 뿐이고" + subjectName + "과목의 요약본인 " + mySummary.getSummary() + "를 읽어보고 관련된 문제를 출제해주면 되는거야."
+                +"내가 DB에 저장할 때 쉽게 하기위해 아래 양식을 지켜서 응답해주면 돼.\n"
                 +"문제 1 : 내용\n"
                 +"====================\n"
-                +"답\n"
+                +"1번 정답\n"
                 +"====================\n"
                 +"문제2 : 내용\n"
                 +"====================\n"
-                +"답\n"
+                +"2번 정답\n"
                 +"====================\n"
                 +"문제3 : 내용\n"
                 +"====================\n"
-                +"답\n"
+                +"3번 정답\n"
                 +"====================\n"
                 +"문제4 : 내용\n"
                 +"====================\n"
-                +"답\n"
+                +"4번 정답\n"
                 +"====================\n"
                 +"문제5 :내용\n"
                 +"====================\n"
-                +"답\n"
+                +"5번 정답\n"
                 +"====================\n"
-                +"그렇다고 예시대로 보내지 말고, 실제로는 내용을 추가해줘야해!!꼭 빈칸채우기라는 점을 명심해줘"
-                +"다만 각 문제와 각 문제의 답안 사이에 ==================== 이 문장을 추가해줘."));
+                +"그렇다고 예시대로 보내지 말고, 실제로는 내용이라고 적혀있는 부분과 ~번 정답이라고 적힌 부분에 내용을 추가해줘야해!! 그리고 꼭 빈칸채우기 문제라는 점을 명심해줘"
+                +"또한 각 문제와 각 문제의 답안 사이에 ==================== 이 문장을 추가해줘."
+        ));
 
         WebClient webClient = webClientBuilder.baseUrl("https://api.openai.com").build();
 
@@ -235,12 +236,11 @@ public class StudyServiceImplement implements StudyService {
         }
 
         String summaryText = summaryResponse.getChoices().get(0).getMessage().getContent();
-        Optional<SummaryEntity> existingSummary = summaryRepository.findByEmailAndSubjectName(email, subjectName);
+        SummaryEntity existingSummary = summaryRepository.findByEmailAndSubjectName(email, subjectName);
 
-        if(existingSummary.isPresent()){
-            SummaryEntity summaryEntity = existingSummary.get();
-            summaryEntity.setSummary(summaryText);
-            summaryRepository.save(summaryEntity);
+        if(existingSummary==null){
+            existingSummary.setSummary(summaryText);
+            summaryRepository.save(existingSummary);
         }else {
             SummaryEntity newSummaryEntity = new SummaryEntity(null, email, subjectName, summaryText);
             summaryRepository.save(newSummaryEntity);
