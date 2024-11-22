@@ -18,6 +18,7 @@ public class SummaryEntity {
     private String email;
     private String subjectName;
     @Column(columnDefinition = "LONGTEXT")
+    @Getter
     @Setter
     private String summary;
 }
