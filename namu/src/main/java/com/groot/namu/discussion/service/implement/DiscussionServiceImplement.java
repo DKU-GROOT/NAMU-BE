@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.groot.namu.discussion.dto.request.PostDiscussionRequestDto;
 import com.groot.namu.discussion.dto.response.PostDiscussionResponseDto;
+import com.groot.namu.discussion.repository.DiscussionRepository;
 import com.groot.namu.discussion.service.DiscussionService;
 import com.groot.namu.global.dto.ResponseDto;
 
@@ -13,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class DiscussionServiceImplement implements DiscussionService{
+
+    private final DiscussionRepository discussionRepository;
 
     @Override
     public ResponseEntity<? super PostDiscussionResponseDto> post(PostDiscussionRequestDto dto) {
