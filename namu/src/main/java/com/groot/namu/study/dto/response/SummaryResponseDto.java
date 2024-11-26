@@ -19,9 +19,9 @@ public class SummaryResponseDto extends ResponseDto{
     @Column(columnDefinition = "LONGTEXT")
     private String summary;
 
-    public SummaryResponseDto() {
-        this.summary="";
-    }
+//    public SummaryResponseDto() {
+//        this.summary="";
+//    }
 
     @JsonCreator
     public SummaryResponseDto(@JsonProperty("summary") String summary) {

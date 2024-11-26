@@ -238,7 +238,7 @@ public class StudyServiceImplement implements StudyService {
         String summaryText = summaryResponse.getChoices().get(0).getMessage().getContent();
         SummaryEntity existingSummary = summaryRepository.findByEmailAndSubjectName(email, subjectName);
 
-        if(existingSummary==null){
+        if(existingSummary!=null){
             existingSummary.setSummary(summaryText);
             summaryRepository.save(existingSummary);
         }else {

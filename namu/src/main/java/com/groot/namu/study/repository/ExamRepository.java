@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ExamRepository extends JpaRepository<ExamEntity, Long> {
+public interface ExamRepository extends JpaRepository<ExamEntity, Integer> {
     ExamEntity findByExamId(int exam_id);
 }
