@@ -20,11 +20,11 @@ public class DiscussionComtroller {
 
     private final DiscussionService discussionService;
 
-    @PostMapping("/post")
-    public ResponseEntity<? super PostDiscussionResponseDto> post(
-        @RequestBody @Valid AddItemListRequestDto requestBody
-    ) {
-        ResponseEntity<? super PostDiscussionResponseDto> response = discussionService.postDiscussion(requestBody);
-        return response;
-    }
+    // @PostMapping("/post")
+    // public ResponseEntity<? super PostDiscussionResponseDto> post(
+    //     @RequestBody @Valid AddItemListRequestDto requestBody
+    // ) {
+    //     ResponseEntity<? super PostDiscussionResponseDto> response = discussionService.postDiscussion(requestBody);
+    //     return response;
+    // }
 }
